@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>API LaSilla</title>
+  </head>
+  <body>
+    <div class="titulo-cont">
+      <div class="titulo-noticias">Noticias</div>
+      <div class="titulo-mensajes">Mensajes</div>
+    </div>
+    <section class="noticias">
+      <div class="form-cont">
+        <input type="text" placeholder="Titulo" id="titulo" />
+        <textarea
+          class="contenido"
+          id="contenido"
+          placeholder="Contenido de la noticia"
+          name="contenido"
+          id="contenido"
+          cols="30"
+          rows="10"
+        ></textarea>
+        <input
+          type="text"
+          placeholder="Url de las imagenes, separadas por coma"
+          id="imagenes"
+        />
+        <input type="text" placeholder="tags, separados por coma" id="tags" />
+        <p class="titulo-select">Tema Principal</p>
+        <select name="temaPrincipal" id="temaPrincipal">
+          <option value="actualidad">Actualidad</option>
+          <option value="cultura">Cultura</option>
+          <option value="deporte">Deporte</option>
+          <option value="streaming">Streaming</option>
+          <option value="espectaculo">Espectaculo</option>
+        </select>
+        <p class="titulo-select">Importancia</p>
+        <select name="importancia" id="importancia">
+          <option value="normal">Normal</option>
+          <option value="importante1">Importante 1</option>
+          <option value="importante2">Importante 2</option>
+          <option value="importante3">Importante 3</option>
+        </select>
+        <input type="text" placeholder="autor" id="autor" />
+      </div>
+      <div class="boton-send" id="boton-send">Enviar</div>
+    </section>
+    <section class="mensajes"></section>
+    <script src="./script.js"></script>
+  </body>
+</html>

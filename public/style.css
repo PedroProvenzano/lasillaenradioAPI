@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+
+* {
+  font-family: "Rubik", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+html {
+  height: 100%;
+}
+.titulo-cont {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  height: 10vh;
+}
+.titulo-cont div {
+  border: solid 2px black;
+  border-bottom: none;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 2rem;
+  user-select: none;
+}
+.titulo-cont div:hover {
+  background-color: rgba(255, 159, 159, 0.705);
+  cursor: pointer;
+}
+.titulo-noticias {
+  background-color: rgb(255, 224, 195);
+}
+.titulo-mensajes {
+  background-color: rgb(175, 243, 255);
+}
+
+/* Noticias */
+.noticias {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(255, 224, 195);
+  height: 100%;
+  width: 100%;
+}
+#titulo {
+  width: 30rem;
+  margin-bottom: 1rem;
+}
+.form-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+}
+.form-cont input {
+  margin-top: 1rem;
+  height: 2.5rem;
+  width: 40rem;
+  font-size: 1.3rem;
+  padding: 0.5rem;
+}
+textarea {
+  resize: none;
+  width: 40rem;
+  font-size: 1.3rem;
+  padding: 0.5rem;
+}
+select {
+  width: 20rem;
+  height: 2.5rem;
+  font-size: 1.3rem;
+}
+.titulo-select {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+.boton-send {
+  margin-top: 2rem;
+  border: 2px black outset;
+  height: 3rem;
+  width: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  background-color: chartreuse;
+  font-weight: 600;
+}
+.boton-send:hover {
+  cursor: pointer;
+  border: 3px black outset;
+}
+
+/* Mensajes */
+.mensajes {
+  display: none;
+  background-color: rgb(175, 243, 255);
+}
