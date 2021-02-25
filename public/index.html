@@ -5,14 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/c19f763333.js"
+      crossorigin="anonymous"
+    ></script>
     <title>API LaSilla</title>
   </head>
   <body>
     <div class="titulo-cont">
-      <div class="titulo-noticias">Noticias</div>
-      <div class="titulo-mensajes">Mensajes</div>
+      <div class="titulo-noticias" id="titulo-noticias">Noticias</div>
+      <div class="titulo-mensajes" id="titulo-mensajes">Mensajes</div>
     </div>
-    <section class="noticias">
+    <section class="noticias" id="noticias">
       <div class="form-cont">
         <input type="text" placeholder="Titulo" id="titulo" />
         <textarea
@@ -49,7 +53,54 @@
       </div>
       <div class="boton-send" id="boton-send">Enviar</div>
     </section>
-    <section class="mensajes"></section>
+    <section class="mensajes" id="mensajes">
+      <div class="contenedor-mensajes">
+        <div class="mensaje">
+          <i class="far fa-times-circle" id="mensaje-equis"></i>
+          <p class="mensaje-nombre">Nombre: Pedro Provenzano</p>
+          <p class="mensaje-email">Email: pedroprov0@gmail.com</p>
+          <p class="titulo-mensaje">Mensaje:</p>
+          <p class="mensaje-contenido">
+            Hola desde un mensaje enviado para probar que tal va el dise;o de la
+            API de la silla en radio
+          </p>
+          <p id="mensaje-fecha">Fecha del mensaje: 21/05/2021</p>
+        </div>
+        <div class="mensaje">
+          <i class="far fa-times-circle" id="mensaje-equis"></i>
+          <p class="mensaje-nombre">Nombre: Pedro Provenzano</p>
+          <p class="mensaje-email">Email: pedroprov0@gmail.com</p>
+          <p class="titulo-mensaje">Mensaje:</p>
+          <p class="mensaje-contenido">
+            Hola desde un mensaje enviado para probar que tal va el dise;o de la
+            API de la silla en radio
+          </p>
+          <p id="mensaje-fecha">Fecha del mensaje: 21/05/2021</p>
+        </div>
+        <div class="mensaje">
+          <i class="far fa-times-circle mensaje-equis"></i>
+          <p class="mensaje-nombre">Nombre: Pedro Provenzano</p>
+          <p class="mensaje-email">Email: pedroprov0@gmail.com</p>
+          <p class="titulo-mensaje">Mensaje:</p>
+          <p class="mensaje-contenido">
+            Hola desde un mensaje enviado para probar que tal va el dise;o de la
+            API de la silla en radio
+          </p>
+          <p id="mensaje-fecha">Fecha del mensaje: 21/05/2021</p>
+        </div>
+        <div class="mensaje">
+          <i class="far fa-times-circle" id="mensaje-equis"></i>
+          <p class="mensaje-nombre">Nombre: Pedro Provenzano</p>
+          <p class="mensaje-email">Email: pedroprov0@gmail.com</p>
+          <p class="titulo-mensaje">Mensaje:</p>
+          <p class="mensaje-contenido">
+            Hola desde un mensaje enviado para probar que tal va el dise;o de la
+            API de la silla en radio
+          </p>
+          <p id="mensaje-fecha">Fecha del mensaje: 21/05/2021</p>
+        </div>
+      </div>
+    </section>
     <script src="./script.js"></script>
   </body>
 </html>

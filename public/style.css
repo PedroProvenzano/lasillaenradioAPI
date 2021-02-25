@@ -111,5 +111,46 @@ select {
 /* Mensajes */
 .mensajes {
   display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
   background-color: rgb(175, 243, 255);
+}
+.contenedor-mensajes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 100%;
+  overflow-x: scroll;
+}
+.mensaje {
+  margin-top: 0.4rem;
+  background-color: white;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+}
+.mensaje p {
+  margin-top: 1rem;
+  padding: 0.6rem;
+  background-color: rgb(224, 224, 224);
+}
+.mensaje-equis {
+  position: relative;
+  left: 98%;
+}
+.mensaje-contenido {
+  margin-top: 0;
+}
+.mensaje-nombre {
+  margin-top: 0;
+}
+.mensaje:nth-of-type(2n) {
+  background-color: rgb(209, 209, 209);
 }
