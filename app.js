@@ -32,6 +32,6 @@ io.on("connection", (socket) => {
   // });
 });
 
-app.listen(port, () => {
+http.listen(port, () => {
   console.log(`Conectado y escuchando en el puerto ${port}`);
 });
