@@ -27,9 +27,9 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   console.log("a user connected");
 
-  // socket.on("mensaje", (msg) => {
-  //   mensajeSocket.HandleDatabase(msg);
-  // });
+  socket.on("mensaje", (msg) => {
+    mensajeSocket.HandleDatabase(msg);
+  });
 });
 
 http.listen(port, () => {
