@@ -7,15 +7,15 @@ class SocketHandle {
   }
 
   async HandleDatabase(msg) {
-    if (msg.adminPass != process.env.ADMIN_PASS) {
-      let respuesta = {
-        id: msg.id,
-        error: `Admin pass incorrecta`,
-      };
-      this.io.emit("error", respuesta);
-      return;
-    }
     if (msg.type == "postNoticia") {
+      if (msg.adminPass != process.env.ADMIN_PASS) {
+        let respuesta = {
+          id: msg.id,
+          error: `Admin pass incorrecta`,
+        };
+        this.io.emit("error", respuesta);
+        return;
+      }
       Noticia.create({
         titulo: msg.titulo,
         contenido: msg.contenido,

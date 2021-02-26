@@ -47,6 +47,7 @@ const tags = document.getElementById("tags");
 const temaPrincipal = document.getElementById("temaPrincipal");
 const importancia = document.getElementById("importancia");
 const autor = document.getElementById("autor");
+const adminPass = document.getElementById("admin-pass");
 
 let imagenesFinal = `[${imagenes.value}]`;
 let tagsFinal = `[${tags.value}]`;
@@ -54,6 +55,7 @@ let tagsFinal = `[${tags.value}]`;
 botonSend.addEventListener("click", () => {
   let postNoticia = {
     id: clientID,
+    adminPass: adminPass.value,
     type: "postNoticia",
     titulo: titulo.value,
     contenido: contenido.value,
@@ -66,9 +68,14 @@ botonSend.addEventListener("click", () => {
   socket.emit("mensaje", postNoticia);
 });
 
-// Recibe
+// Recibe respuesta de mensaje
 socket.on("respPostNoticia", (msg) => {
   if (msg.id == clientID) {
     console.log(msg);
   }
+});
+
+// Recibe errores
+socket.on("error", (msg) => {
+  console.log(msg);
 });
