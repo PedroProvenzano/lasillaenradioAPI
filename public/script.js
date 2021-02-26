@@ -65,6 +65,7 @@ botonSend.addEventListener("click", () => {
     importancia: importancia.value,
     autor: autor.value,
   };
+  console.log(postNoticia);
   socket.emit("mensaje", postNoticia);
 });
 
