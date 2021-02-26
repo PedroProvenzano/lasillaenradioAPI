@@ -29,7 +29,6 @@ io.on("connection", (socket) => {
 
   socket.on("mensaje", (msg) => {
     mensajeSocket.HandleDatabase(msg);
-    console.log("recibio mensaje");
   });
 });
 

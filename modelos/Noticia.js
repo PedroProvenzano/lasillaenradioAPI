@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require("sequelize");
+const { DataTypes, Model, DATE } = require("sequelize");
 const sequelize = require("../conecciones/connection");
 
 class Noticia extends Model {}
@@ -32,6 +32,11 @@ Noticia.init(
     autor: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    fecha: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+      allowNull: true,
     },
   },
   {
