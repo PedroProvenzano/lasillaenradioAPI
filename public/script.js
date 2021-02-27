@@ -49,10 +49,12 @@ const importancia = document.getElementById("importancia");
 const autor = document.getElementById("autor");
 const adminPass = document.getElementById("admin-pass");
 
-let imagenesFinal = `[${imagenes.value}]`;
-let tagsFinal = `[${tags.value}]`;
+let imagenesFinal;
+let tagsFinal;
 
 botonSend.addEventListener("click", () => {
+  imagenesFinal = `[${imagenes.value}]`;
+  tagsFinal = `[${tags.value}]`;
   let postNoticia = {
     id: clientID,
     adminPass: adminPass.value,
@@ -65,7 +67,6 @@ botonSend.addEventListener("click", () => {
     importancia: importancia.value,
     autor: autor.value,
   };
-  console.log(postNoticia);
   socket.emit("mensaje", postNoticia);
 });
 
