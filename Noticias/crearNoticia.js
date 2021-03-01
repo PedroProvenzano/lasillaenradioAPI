@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Noticia = require("../modelos/Noticia");
 
-// Crear Noticia
+// Crear Noticias
 
 router.post("/", async (req, res) => {
   try {
