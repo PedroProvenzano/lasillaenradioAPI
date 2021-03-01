@@ -7,6 +7,7 @@ const Noticia = require("../modelos/Noticia");
 router.post("/", async (req, res) => {
   try {
     // Check si tiene de valor importante
+    console.log(req.body.importancia);
     if (
       req.body.importancia == "importante1" ||
       req.body.importancia == "importante2" ||
