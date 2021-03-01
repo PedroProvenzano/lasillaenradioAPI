@@ -16,6 +16,20 @@ class SocketHandle {
         this.io.emit("error", respuesta);
         return;
       }
+
+      if (
+        msg.importancia == "importante1" ||
+        msg.importancia == "importante2" ||
+        msg.importancia == "importante3"
+      ) {
+        const noticiaEdit = await Noticia.findOne({
+          where: { importancia: msg.importancia },
+        });
+        noticiaEdit.importancia = "normal";
+        await noticiaEdit.save({ fields: ["importancia"] });
+        await noticiaEdit.reload();
+      }
+
       Noticia.create({
         titulo: msg.titulo,
         contenido: msg.contenido,
