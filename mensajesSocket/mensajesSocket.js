@@ -51,6 +51,35 @@ class SocketHandle {
       this.io.emit("mensajesNuevos", respuesta);
       return;
     }
+    if (msg.type == "delMensaje") {
+      if (msg.adminPass != process.env.ADMIN_PASS) {
+        let respuesta = {
+          id: msg.id,
+          error: `Admin pass incorrecta`,
+        };
+        this.io.emit("error", respuesta);
+        return;
+      }
+      const mensajeEliminar = await Mensaje.findOne({
+        where: { id: msg.msgID },
+      });
+      if (mensajeEliminar != null) {
+        mensajeEliminar.destroy();
+        let respuesta = {
+          id: msg.id,
+          mensaje: `Mensaje eliminado correctamente`,
+        };
+        this.io.emit("mensajeEliminado", respuesta);
+        return;
+      } else {
+        let respuesta = {
+          id: msg.id,
+          mensaje: `ID de mensaje no encontrado`,
+        };
+        this.io.emit("mensajeEliminado", respuesta);
+        return;
+      }
+    }
   }
 }
 

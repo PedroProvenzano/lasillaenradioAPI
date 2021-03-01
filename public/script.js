@@ -77,6 +77,8 @@ socket.on("respPostNoticia", (msg) => {
   }
 });
 
+// Eliminar mensajes
+
 // Recibe errores
 socket.on("error", (msg) => {
   console.log(msg);

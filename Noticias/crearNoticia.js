@@ -6,6 +6,20 @@ const Noticia = require("../modelos/Noticia");
 
 router.post("/", async (req, res) => {
   try {
+    // Check si tiene de valor importante
+    if (
+      req.body.importancia == "Importante 1" ||
+      req.body.importancia == "Importante 2" ||
+      req.body.importancia == "Importante 3"
+    ) {
+      const noticiaEdit = await Noticia.findOne({
+        where: { importancia: req.body.importancia },
+      });
+      noticiaEdit.importancia = "Normal";
+      await noticiaEdit.save({ fields: ["importancia"] });
+      await noticiaEdit.reload();
+    }
+
     Noticia.create({
       titulo: req.body.titulo,
       contenido: req.body.contenido,
