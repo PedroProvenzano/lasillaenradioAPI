@@ -10,7 +10,7 @@ Noticia.init(
       allowNull: false,
     },
     contenido: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     contenidoRes: {
