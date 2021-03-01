@@ -8,13 +8,14 @@ const SocketHandle = require("./mensajesSocket/mensajesSocket");
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const mensajeSocket = new SocketHandle(io);
-
+const cors = require("cors");
 const noticias = require("./rutas/noticias");
 const mensajes = require("./rutas/mensajes");
 // Syncs
 require("./conecciones/migraciones");
 
 // Middlewares
+app.use(cors());
 app.use(bodyParser.json());
 app.use("/noticias", noticias);
 app.use("/mensajes", mensajes);
