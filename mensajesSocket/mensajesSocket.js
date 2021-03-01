@@ -25,9 +25,11 @@ class SocketHandle {
         const noticiaEdit = await Noticia.findOne({
           where: { importancia: msg.importancia },
         });
-        noticiaEdit.importancia = "normal";
-        await noticiaEdit.save({ fields: ["importancia"] });
-        await noticiaEdit.reload();
+        if (noticiaEdit != null) {
+          noticiaEdit.importancia = "normal";
+          await noticiaEdit.save({ fields: ["importancia"] });
+          await noticiaEdit.reload();
+        }
       }
 
       Noticia.create({
