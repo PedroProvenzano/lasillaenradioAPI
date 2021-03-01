@@ -42,6 +42,7 @@ const botonSend = document.getElementById("boton-send");
 // Inputs
 const titulo = document.getElementById("titulo");
 const contenido = document.getElementById("contenido");
+const contenidoRes = document.getElementById("contenidoRes");
 const imagenes = document.getElementById("imagenes");
 const tags = document.getElementById("tags");
 const temaPrincipal = document.getElementById("temaPrincipal");
@@ -61,6 +62,7 @@ botonSend.addEventListener("click", () => {
     type: "postNoticia",
     titulo: titulo.value,
     contenido: contenido.value,
+    contenidoRes: contenidoRed.value,
     imagenesUrl: imagenesFinal,
     tags: tagsFinal,
     temaPrincipal: temaPrincipal.value,

@@ -13,6 +13,10 @@ Noticia.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    contenidoRes: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     imagenesUrl: {
       type: DataTypes.STRING,
       allowNull: false,

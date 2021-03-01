@@ -35,6 +35,7 @@ class SocketHandle {
       Noticia.create({
         titulo: msg.titulo,
         contenido: msg.contenido,
+        contenidoRes: msg.contenidoRes,
         imagenesUrl: msg.imagenesUrl,
         tags: msg.tags,
         temaPrincipal: msg.temaPrincipal,
