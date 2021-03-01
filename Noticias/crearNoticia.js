@@ -12,12 +12,14 @@ router.post("/", async (req, res) => {
       req.body.importancia == "importante2" ||
       req.body.importancia == "importante3"
     ) {
+      console.log("Pase por Importante");
       const noticiaEdit = await Noticia.findOne({
         where: { importancia: req.body.importancia },
       });
-      noticiaEdit.importancia = "Normal";
+      noticiaEdit.importancia = "normal";
       await noticiaEdit.save({ fields: ["importancia"] });
       await noticiaEdit.reload();
+      console.log(noticiaEdit);
     }
 
     Noticia.create({
