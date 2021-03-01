@@ -8,9 +8,9 @@ router.post("/", async (req, res) => {
   try {
     // Check si tiene de valor importante
     if (
-      req.body.importancia == "Importante 1" ||
-      req.body.importancia == "Importante 2" ||
-      req.body.importancia == "Importante 3"
+      req.body.importancia == "importante1" ||
+      req.body.importancia == "importante2" ||
+      req.body.importancia == "importante3"
     ) {
       const noticiaEdit = await Noticia.findOne({
         where: { importancia: req.body.importancia },
