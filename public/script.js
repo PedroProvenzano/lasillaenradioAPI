@@ -62,7 +62,7 @@ botonSend.addEventListener("click", () => {
     type: "postNoticia",
     titulo: titulo.value,
     contenido: contenido.value,
-    contenidoRes: contenidoRed.value,
+    contenidoRes: contenidoRes.value,
     imagenesUrl: imagenesFinal,
     tags: tagsFinal,
     temaPrincipal: temaPrincipal.value,
