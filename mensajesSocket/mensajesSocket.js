@@ -73,6 +73,7 @@ class SocketHandle {
         let respuesta = {
           id: msg.id,
           error: `Admin pass incorrecta`,
+          boolCheck: false,
         };
         this.io.emit("error", respuesta);
         return;
@@ -84,7 +85,9 @@ class SocketHandle {
         mensajeEliminar.destroy();
         let respuesta = {
           id: msg.id,
+          msgID: msg.msgID,
           mensaje: `Mensaje eliminado correctamente`,
+          boolCheck: true,
         };
         this.io.emit("mensajeEliminado", respuesta);
         return;
@@ -92,6 +95,7 @@ class SocketHandle {
         let respuesta = {
           id: msg.id,
           mensaje: `ID de mensaje no encontrado`,
+          boolCheck: false,
         };
         this.io.emit("mensajeEliminado", respuesta);
         return;

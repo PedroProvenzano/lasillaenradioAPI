@@ -4,7 +4,8 @@ var socket = io();
 let arrayID = new Uint32Array(3);
 let cryptedID = window.crypto.getRandomValues(arrayID);
 let clientID = cryptedID.toString("hex");
-
+// Admin pass Input
+const adminPass = document.getElementById("admin-pass");
 // Recibir mensajes
 let recibirMensaje = {
   id: clientID,
@@ -16,11 +17,13 @@ const contenedorMensajes = document.getElementById("contenedor-mensajes");
 
 socket.on("mensajesNuevos", (msg) => {
   if (msg.id == clientID) {
+    let equisIDS;
     let arrayMsj = msg.mensajes;
+    let mensajeSocket;
     contenedorMensajes.innerHTML = "";
     for (let i of arrayMsj) {
       contenedorMensajes.innerHTML += `<div class="mensaje" id="mensaje-${i.id}">
-      <i class="far fa-times-circle mensaje-equis"></i>
+      <i class="far fa-times-circle mensaje-equis" id="equis-id-${i.id}"></i>
       <p class="mensaje-nombre">Nombre: ${i.nombre}</p>
       <p class="mensaje-email">Email: ${i.email}</p>
       <p class="titulo-mensaje">Mensaje:</p>
@@ -30,6 +33,16 @@ socket.on("mensajesNuevos", (msg) => {
       <p class="mensaje-id">${i.id}</p>
       <p class="mensaje-fecha">Fecha del mensaje: ${i.createdAt}</p>
     </div>`;
+      equisIDS = document.getElementById(`equis-id-${i.id}`);
+      equisIDS.addEventListener("click", () => {
+        mensajeSocket = {
+          id: clientID,
+          type: "delMensaje",
+          msgID: i.id,
+          adminPass: adminPass.value,
+        };
+        socket.emit("mensaje", mensajeSocket);
+      });
     }
   }
 });
@@ -64,7 +77,6 @@ const tags = document.getElementById("tags");
 const temaPrincipal = document.getElementById("temaPrincipal");
 const importancia = document.getElementById("importancia");
 const autor = document.getElementById("autor");
-const adminPass = document.getElementById("admin-pass");
 
 let imagenesFinal;
 let tagsFinal;
@@ -96,6 +108,18 @@ socket.on("respPostNoticia", (msg) => {
 });
 
 // Eliminar mensajes
+let mensajeAEliminar;
+
+socket.on("mensajeEliminado", (msg) => {
+  if (msg.id == clientID) {
+    if (msg.boolCheck) {
+      mensajeAEliminar = document.getElementById(`mensaje-${msg.msgID}`);
+      mensajeAEliminar.remove();
+    } else {
+      console.log(`Error ${msg.mensaje}`);
+    }
+  }
+});
 
 // Recibe errores
 socket.on("error", (msg) => {
