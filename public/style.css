@@ -144,6 +144,7 @@ select {
 .mensaje-equis {
   font-size: 2rem;
   padding: 5px;
+  width: 45px;
 }
 .mensaje-equis:hover {
   cursor: pointer;

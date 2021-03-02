@@ -41,6 +41,7 @@ socket.on("mensajesNuevos", (msg) => {
           msgID: i.id,
           adminPass: adminPass.value,
         };
+        console.log("hola");
         socket.emit("mensaje", mensajeSocket);
       });
     }
