@@ -17,25 +17,17 @@ const contenedorMensajes = document.getElementById("contenedor-mensajes");
 
 socket.on("mensajesNuevos", (msg) => {
   if (msg.id == clientID) {
-    let equisIDS;
     let arrayMsj = msg.mensajes;
-    let mensajeSocket;
     contenedorMensajes.innerHTML = "";
     for (let i of arrayMsj) {
-      contenedorMensajes.innerHTML += `<div class="mensaje" id="mensaje-${i.id}">
-      <i class="far fa-times-circle mensaje-equis" id="equis-id-${i.id}"></i>
-      <p class="mensaje-nombre">Nombre: ${i.nombre}</p>
-      <p class="mensaje-email">Email: ${i.email}</p>
-      <p class="titulo-mensaje">Mensaje:</p>
-      <p class="mensaje-contenido">
-      ${i.contenido}
-      </p>
-      <p class="mensaje-id">${i.id}</p>
-      <p class="mensaje-fecha">Fecha del mensaje: ${i.createdAt}</p>
-    </div>`;
-      equisIDS = document.getElementById(`equis-id-${i.id}`);
-      equisIDS.addEventListener("click", () => {
-        mensajeSocket = {
+      let contDiv = document.createElement("div");
+      contDiv.setAttribute("class", "mensaje");
+      contDiv.setAttribute("id", `mensaje-${i.id}`);
+      let iEquis = document.createElement("i");
+      iEquis.setAttribute("class", "far fa-times-circle mensaje-equis");
+      iEquis.setAttribute("id", `equis-id-${i.id}`);
+      iEquis.addEventListener("click", () => {
+        let mensajeSocket = {
           id: clientID,
           type: "delMensaje",
           msgID: i.id,
@@ -44,6 +36,32 @@ socket.on("mensajesNuevos", (msg) => {
         console.log("hola");
         socket.emit("mensaje", mensajeSocket);
       });
+      contDiv.append(iEquis);
+      let pNombre = document.createElement("p");
+      pNombre.setAttribute("class", "mensaje-nombre");
+      pNombre.innerText = `Nombre: ${i.nombre}`;
+      contDiv.append(pNombre);
+      let pEmail = document.createElement("p");
+      pEmail.setAttribute("class", "mensaje-email");
+      pEmail.innerText = `Email: ${i.email}`;
+      contDiv.append(pEmail);
+      let pTitCont = document.createElement("p");
+      pTitCont.setAttribute("class", "titulo-mensaje");
+      pTitCont.innerText = "Mensaje:";
+      contDiv.append(pTitCont);
+      let pContenido = document.createElement("p");
+      pContenido.setAttribute("class", "mensaje-contenido");
+      pContenido.innerText = `${i.contenido}`;
+      contDiv.append(pContenido);
+      let pID = document.createElement("p");
+      pID.setAttribute("class", "mensaje-id");
+      pID.innerText = i.id;
+      contDiv.append(pID);
+      let pFecha = document.createElement("p");
+      pFecha.setAttribute("class", "mensaje-fecha");
+      pFecha.innerText = `Fecha del mensaje: ${i.createdAt}`;
+      contDiv.append(pFecha);
+      contenedorMensajes.append(contDiv);
     }
   }
 });
