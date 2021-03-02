@@ -19,9 +19,7 @@ socket.on("mensajesNuevos", (msg) => {
     let arrayMsj = msg.mensajes;
     contenedorMensajes.innerHTML = "";
     for (let i of arrayMsj) {
-      contenedorMensajes.innerHTML += `<div class="mensaje" id="mensaje-${
-        i.id
-      }">
+      contenedorMensajes.innerHTML += `<div class="mensaje" id="mensaje-${i.id}">
       <i class="far fa-times-circle mensaje-equis"></i>
       <p class="mensaje-nombre">Nombre: ${i.nombre}</p>
       <p class="mensaje-email">Email: ${i.email}</p>
@@ -30,7 +28,7 @@ socket.on("mensajesNuevos", (msg) => {
       ${i.contenido}
       </p>
       <p class="mensaje-id">${i.id}</p>
-      <p class="mensaje-fecha">Fecha del mensaje: ${i.createdAt.getDate()}/${i.createdAt.getMonth()}/${i.createdAt.getFullYear()}</p>
+      <p class="mensaje-fecha">Fecha del mensaje: ${i.createdAt}</p>
     </div>`;
     }
   }
