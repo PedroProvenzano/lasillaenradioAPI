@@ -14,7 +14,7 @@ socket.emit("mensaje", recibirMensaje);
 
 socket.on("mensajesNuevos", (msg) => {
   if (msg.id == clientID) {
-    console.log("Mensajes recibidos");
+    console.log(msg.mensajes);
   }
 });
 
