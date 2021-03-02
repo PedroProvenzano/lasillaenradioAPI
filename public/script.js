@@ -18,6 +18,9 @@ const contenedorMensajes = document.getElementById("contenedor-mensajes");
 socket.on("mensajesNuevos", (msg) => {
   if (msg.id == clientID) {
     let arrayMsj = msg.mensajes;
+    if (arrayMsj == null) {
+      return;
+    }
     contenedorMensajes.innerHTML = "";
     for (let i of arrayMsj) {
       let contDiv = document.createElement("div");
