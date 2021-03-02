@@ -12,9 +12,27 @@ let recibirMensaje = {
 };
 socket.emit("mensaje", recibirMensaje);
 
+const contenedorMensajes = document.getElementById("contenedor-mensajes");
+
 socket.on("mensajesNuevos", (msg) => {
   if (msg.id == clientID) {
-    console.log(msg.mensajes);
+    let arrayMsj = msg.mensajes;
+    contenedorMensajes.innerHTML = "";
+    for (let i of arrayMsj) {
+      contenedorMensajes.innerHTML += `<div class="mensaje" id="mensaje-${
+        i.id
+      }">
+      <i class="far fa-times-circle mensaje-equis"></i>
+      <p class="mensaje-nombre">Nombre: ${i.nombre}</p>
+      <p class="mensaje-email">Email: ${i.email}</p>
+      <p class="titulo-mensaje">Mensaje:</p>
+      <p class="mensaje-contenido">
+      ${i.contenido}
+      </p>
+      <p class="mensaje-id">${i.id}</p>
+      <p class="mensaje-fecha">Fecha del mensaje: ${i.createdAt.getDate()}/${i.createdAt.getMonth()}/${i.createdAt.getFullYear()}</p>
+    </div>`;
+    }
   }
 });
 
