@@ -18,7 +18,7 @@ Noticia.init(
       allowNull: false,
     },
     imagenesUrl: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     tags: {
