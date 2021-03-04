@@ -17,19 +17,23 @@ const contenedorMensajes = document.getElementById("contenedor-mensajes");
 
 // Consola
 const avisoCont = document.getElementById("aviso-cont");
+const avisoTitulo = document.getElementById("aviso-titulo");
 const avisoTexto = document.getElementById("aviso-texto");
 const avisoBoton = document.getElementById("aviso-boton");
 // Funcion
-function printConsole(message) {
+function printConsole(message, color) {
+  avisoTitulo.style.color = color;
   avisoTexto.innerText = message;
   avisoCont.style.display = "flex";
-  avisoCont.style.opacity = "100%";
+  setTimeout(() => {
+    avisoCont.style.opacity = "100%";
+  }, 20);
   setTimeout(() => {
     avisoCont.style.opacity = "0";
     setTimeout(() => {
       avisoCont.style.display = "none";
     }, 200);
-  }, 1000 * 5);
+  }, 1000 * 10);
 }
 
 socket.on("mensajesNuevos", (msg) => {
@@ -125,7 +129,7 @@ let tagsFinal;
 
 botonSend.addEventListener("click", () => {
   if (contenidoRes.value.length > 245) {
-    printConsole("Contenido de resumen supera los 245 caracteres");
+    printConsole("Contenido de resumen supera los 245 caracteres", "red");
     return;
   }
   imagenesFinal = `[${imagenes.value}]`;
@@ -149,7 +153,7 @@ botonSend.addEventListener("click", () => {
 // Recibe respuesta de mensaje
 socket.on("respPostNoticia", (msg) => {
   if (msg.id == clientID) {
-    printConsole(msg.msg);
+    printConsole(msg.msg, "green");
   }
 });
 
@@ -162,12 +166,12 @@ socket.on("mensajeEliminado", (msg) => {
       mensajeAEliminar = document.getElementById(`mensaje-${msg.msgID}`);
       mensajeAEliminar.remove();
     } else {
-      printConsole(`Error ${msg.mensaje}`);
+      printConsole(`Error ${msg.mensaje}`, "red");
     }
   }
 });
 
 // Recibe errores
 socket.on("error", (msg) => {
-  printConsole(msg);
+  printConsole(msg.error, "red");
 });
