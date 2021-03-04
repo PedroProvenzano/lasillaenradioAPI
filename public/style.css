@@ -186,7 +186,7 @@ select {
   top: 50%;
   left: 15%;
   display: none; /* flex */
-  opacity: 100%;
+  opacity: 0%;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;

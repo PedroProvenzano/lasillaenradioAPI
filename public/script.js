@@ -23,9 +23,9 @@ const avisoBoton = document.getElementById("aviso-boton");
 function printConsole(message) {
   avisoTexto.innerText = message;
   avisoCont.style.display = "flex";
-  avisoCont.style.opacity = "0";
+  avisoCont.style.opacity = "100%";
   setTimeout(() => {
-    avisoCont.style.opacity = "100%";
+    avisoCont.style.opacity = "0";
     setTimeout(() => {
       avisoCont.style.display = "none";
     }, 200);
