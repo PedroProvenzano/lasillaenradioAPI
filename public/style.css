@@ -179,3 +179,47 @@ select {
   width: 50vw;
   margin-top: 30vh;
 }
+
+.aviso-cont {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 15%;
+  display: none; /* flex */
+  opacity: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: auto;
+  width: 20%;
+  border: black 3px solid;
+  border-radius: 10%;
+  padding: 1rem;
+  background-color: cornsilk;
+  font-size: 1.2rem;
+  transition: opacity 200ms;
+}
+.aviso-cont p {
+  color: red;
+  font-weight: 600;
+}
+#aviso-texto {
+  margin-top: 10px;
+  font-weight: 400;
+  color: black;
+}
+#aviso-boton {
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  width: 20%;
+  background-color: rgb(133, 252, 252);
+  transition: background-color 200ms;
+}
+#aviso-boton:hover {
+  cursor: pointer;
+  background-color: rgb(55, 230, 230);
+}

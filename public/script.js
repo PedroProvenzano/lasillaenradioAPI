@@ -15,6 +15,23 @@ socket.emit("mensaje", recibirMensaje);
 
 const contenedorMensajes = document.getElementById("contenedor-mensajes");
 
+// Consola
+const avisoCont = document.getElementById("aviso-cont");
+const avisoTexto = document.getElementById("aviso-texto");
+const avisoBoton = document.getElementById("aviso-boton");
+// Funcion
+function printConsole(message) {
+  avisoTexto.innerText = message;
+  avisoCont.style.display = "flex";
+  avisoCont.style.opacity = "0";
+  setTimeout(() => {
+    avisoCont.style.opacity = "100%";
+    setTimeout(() => {
+      avisoCont.style.display = "none";
+    }, 200);
+  }, 1000 * 5);
+}
+
 socket.on("mensajesNuevos", (msg) => {
   if (msg.id == clientID) {
     let arrayMsj = msg.mensajes;
@@ -107,6 +124,10 @@ let imagenesFinal;
 let tagsFinal;
 
 botonSend.addEventListener("click", () => {
+  if (contenidoRes.value.length > 245) {
+    printConsole("Contenido de resumen supera los 245 caracteres");
+    return;
+  }
   imagenesFinal = `[${imagenes.value}]`;
   tagsFinal = `[${tags.value}]`;
   let postNoticia = {
@@ -128,7 +149,7 @@ botonSend.addEventListener("click", () => {
 // Recibe respuesta de mensaje
 socket.on("respPostNoticia", (msg) => {
   if (msg.id == clientID) {
-    console.log(msg);
+    printConsole(msg.msg);
   }
 });
 
