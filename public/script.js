@@ -162,12 +162,12 @@ socket.on("mensajeEliminado", (msg) => {
       mensajeAEliminar = document.getElementById(`mensaje-${msg.msgID}`);
       mensajeAEliminar.remove();
     } else {
-      console.log(`Error ${msg.mensaje}`);
+      printConsole(`Error ${msg.mensaje}`);
     }
   }
 });
 
 // Recibe errores
 socket.on("error", (msg) => {
-  console.log(msg);
+  printConsole(msg);
 });
