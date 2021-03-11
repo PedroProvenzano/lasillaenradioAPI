@@ -223,3 +223,27 @@ select {
   cursor: pointer;
   background-color: rgb(55, 230, 230);
 }
+#imagenes {
+  margin: 0;
+  width: 100%;
+}
+.input-links-cont {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.input-linkUno-cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.fontAw {
+  font-size: 2.5rem;
+}
+.fontAw:hover {
+  cursor: pointer;
+}

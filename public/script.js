@@ -111,6 +111,25 @@ botonMensajes.addEventListener("click", () => {
   mensajes.style.display = "flex";
 });
 
+// Agregar links
+const plusClick = document.getElementById("inputPlus");
+const minusClick = document.getElementById("inputMinus");
+const editLinks = document.getElementById("editLinks");
+let cantidadLinks = 1;
+plusClick.addEventListener("click", () => {
+  let inputLink = document.createElement("input");
+  inputLink.setAttribute("class", "editLinksInput");
+  inputLink.setAttribute("id", "editLinksInput");
+  editLinks.appendChild(inputLink);
+  cantidadLinks++;
+});
+minusClick.addEventListener("click", () => {
+  if (cantidadLinks > 1) {
+    editLinks.removeChild(editLinks.lastChild);
+    cantidadLinks--;
+  }
+});
+
 // Postear Noticias
 
 const botonSend = document.getElementById("boton-send");

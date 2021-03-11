@@ -40,11 +40,18 @@
           cols="30"
           rows="10"
         ></textarea>
-        <input
-          type="text"
-          placeholder="Url de las imagenes, separadas por coma"
-          id="imagenes"
-        />
+        <div class="input-links-cont" id="editLinks">
+          <div class="input-linkUno-cont">
+            <input
+              class="editLinksInput"
+              type="text"
+              placeholder="Url de las imagenes, separadas por coma"
+              id="imagenes"
+            />
+            <i class="fontAw far fa-plus-square" id="inputPlus"></i>
+            <i class="fontAw far fa-minus-square" id="inputMinus"></i>
+          </div>
+        </div>
         <input type="text" placeholder="Tags, separados por coma" id="tags" />
         <p class="titulo-select">Tema Principal</p>
         <select name="temaPrincipal" id="temaPrincipal">
@@ -60,6 +67,7 @@
           <option value="importante1">Importante 1</option>
           <option value="importante2">Importante 2</option>
           <option value="importante3">Importante 3</option>
+          <option value="importante4">Importante 4</option>
         </select>
         <input type="text" placeholder="Autor" id="autor" />
         <input type="password" placeholder="Admin Pass" id="admin-pass" />
