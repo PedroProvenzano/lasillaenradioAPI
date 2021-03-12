@@ -142,6 +142,7 @@ const tags = document.getElementById("tags");
 const temaPrincipal = document.getElementById("temaPrincipal");
 const importancia = document.getElementById("importancia");
 const autor = document.getElementById("autor");
+const fuente = document.getElementById("fuente");
 
 let imagenesFinal;
 let tagsFinal;
@@ -170,6 +171,7 @@ botonSend.addEventListener("click", () => {
     temaPrincipal: temaPrincipal.value,
     importancia: importancia.value,
     autor: autor.value,
+    fuente: fuente.value,
   };
   socket.emit("mensaje", postNoticia);
 });

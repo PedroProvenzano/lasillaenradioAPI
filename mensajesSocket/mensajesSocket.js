@@ -17,8 +17,21 @@ class SocketHandle {
         return;
       }
 
-      if (msg.)
-
+      if (
+        msg.titulo == "" ||
+        msg.contenido == "" ||
+        msg.contenidoRes == "" ||
+        msg.imagenesUrl == "" ||
+        msg.tags == "" ||
+        msg.autor == ""
+      ) {
+        let respuesta = {
+          id: msg.id,
+          error: `Falta completar algun campo`,
+        };
+        this.io.emit("error", respuesta);
+        return;
+      }
 
       if (
         msg.importancia == "importante1" ||
@@ -34,7 +47,12 @@ class SocketHandle {
           await noticiaEdit.reload();
         }
       }
-
+      let fuenteEnviar;
+      if (!msg.fuente) {
+        fuenteEnviar = "Original";
+      } else {
+        fuenteEnviar = msg.fuente;
+      }
       Noticia.create({
         titulo: msg.titulo,
         contenido: msg.contenido,
@@ -44,6 +62,7 @@ class SocketHandle {
         temaPrincipal: msg.temaPrincipal,
         importancia: msg.importancia,
         autor: msg.autor,
+        fuente: fuenteEnviar,
       })
         .then(() => {
           let respuesta = {
