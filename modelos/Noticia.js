@@ -42,6 +42,10 @@ Noticia.init(
       defaultValue: new Date(),
       allowNull: true,
     },
+    fuente: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     sequelize,

@@ -17,6 +17,9 @@ class SocketHandle {
         return;
       }
 
+      if (msg.)
+
+
       if (
         msg.importancia == "importante1" ||
         msg.importancia == "importante2" ||

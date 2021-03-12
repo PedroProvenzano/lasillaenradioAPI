@@ -151,7 +151,12 @@ botonSend.addEventListener("click", () => {
     printConsole("Contenido de resumen supera los 245 caracteres", "red");
     return;
   }
-  imagenesFinal = `[${imagenes.value}]`;
+  imagenesFinal = [];
+  let linksDom = document.getElementsByClassName("editLinksInput");
+  for (let i of linksDom) {
+    imagenesFinal.push(i.value);
+  }
+  imagenesFinal = JSON.stringify(imagenesFinal);
   tagsFinal = `[${tags.value}]`;
   let postNoticia = {
     id: clientID,
