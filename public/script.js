@@ -145,6 +145,7 @@ const autor = document.getElementById("autor");
 const fuente = document.getElementById("fuente");
 
 let imagenesFinal;
+
 let tagsFinal;
 
 botonSend.addEventListener("click", () => {
