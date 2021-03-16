@@ -236,5 +236,6 @@ botonSendImg.addEventListener("click", () => {
     descripcion: textAreaImg.value,
     autor: autorImgDelDia.value,
   };
+  imgDelDia.src = inputImgDelDia.value;
   socket.emit("mensaje", postImg);
 });
