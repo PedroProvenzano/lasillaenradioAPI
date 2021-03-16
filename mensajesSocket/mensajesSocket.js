@@ -1,6 +1,7 @@
 require("dotenv/config");
 const Noticia = require("../modelos/Noticia");
 const Mensaje = require("../modelos/Mensaje");
+const Imagen = require("../modelos/Imagen");
 class SocketHandle {
   constructor(io) {
     this.io = io;
@@ -122,6 +123,40 @@ class SocketHandle {
         this.io.emit("mensajeEliminado", respuesta);
         return;
       }
+    }
+    if (msg.type == "postImagenDelDia") {
+      if (msg.adminPass != process.env.ADMIN_PASS) {
+        let respuesta = {
+          id: msg.id,
+          error: `Admin pass incorrecta`,
+          boolCheck: false,
+        };
+        this.io.emit("error", respuesta);
+        return;
+      }
+      // Cargar imagen
+      const imagenes = await Imagen.findAll();
+      imagenes.destroy();
+      Imagen.create({
+        imgUrl: msg.imgUrl,
+        descripcion: msg.descripcion,
+        autor: msg.autor,
+      })
+        .then(() => {
+          let respImg = {
+            id: msg.id,
+            msg: `Imagen del día cargada correctamente`,
+          };
+          this.io.emit("respPostNoticia", respImg);
+        })
+        .catch((err) => {
+          let respuesta = {
+            id: msg.id,
+            error: err,
+          };
+          this.io.emit("error", respuesta);
+          return;
+        });
     }
   }
 }

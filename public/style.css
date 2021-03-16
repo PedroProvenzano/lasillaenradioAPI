@@ -48,6 +48,9 @@ html {
 .titulo-mensajes {
   background-color: rgb(175, 243, 255);
 }
+.titulo-imagen {
+  background-color: rgb(140, 245, 140);
+}
 
 /* Noticias */
 .noticias {
@@ -246,4 +249,29 @@ select {
 }
 .fontAw:hover {
   cursor: pointer;
+}
+
+/* Imagen del dia */
+.imagen {
+  background-color: rgb(140, 245, 140);
+  display: none; /* flex */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.imagen textarea {
+  margin-top: 2rem;
+  height: 150px;
+  width: 40vw;
+}
+.imagen img {
+  width: 40vw;
+}
+.imagen input {
+  margin-top: 2rem;
+  width: 40vw;
+  height: 2.5vw;
+  font-size: 1.2vw;
+  padding: 0.5vw;
 }

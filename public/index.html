@@ -15,6 +15,7 @@
     <div class="titulo-cont">
       <div class="titulo-noticias" id="titulo-noticias">Noticias</div>
       <div class="titulo-mensajes" id="titulo-mensajes">Mensajes</div>
+      <div class="titulo-imagen" id="titulo-imagen">Imagen del dia</div>
     </div>
     <section class="noticias" id="noticias">
       <div class="aviso-cont" id="aviso-cont">
@@ -81,6 +82,24 @@
           <p class="no-hay-mensajes">Todavia no hay mensajes</p>
         </div>
       </div>
+    </section>
+    <section class="imagen" id="imagen">
+      <img src="./imagen.jpg" alt="" id="imgDelDia" />
+      <textarea
+        placeholder="Descripcion de imagen... "
+        name=""
+        id="inputDescImg"
+        cols="30"
+        rows="10"
+      ></textarea>
+      <input
+        placeholder="Link de la imagen.."
+        type="text"
+        id="inputImgDelDia"
+      />
+      <input type="text" id="inputAutorImg" placeholder="Autor.." />
+      <input type="password" id="adminPassImg" placeholder="Admin pass.." />
+      <div class="boton-send" id="boton-send-img">Enviar</div>
     </section>
     <script src="/socket.io/socket.io.js"></script>
     <script src="./script.js"></script>

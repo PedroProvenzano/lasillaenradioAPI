@@ -96,19 +96,29 @@ socket.on("mensajesNuevos", (msg) => {
 // Script De HUD
 const botonNoticias = document.getElementById("titulo-noticias");
 const botonMensajes = document.getElementById("titulo-mensajes");
+const botonImagen = document.getElementById("titulo-imagen");
 
 // Escenas
 const noticias = document.getElementById("noticias");
 const mensajes = document.getElementById("mensajes");
+const imagen = document.getElementById("imagen");
 
 botonNoticias.addEventListener("click", () => {
   noticias.style.display = "flex";
   mensajes.style.display = "none";
+  imagen.style.display = "none";
 });
 
 botonMensajes.addEventListener("click", () => {
   noticias.style.display = "none";
   mensajes.style.display = "flex";
+  imagen.style.display = "none";
+});
+
+botonImagen.addEventListener("click", () => {
+  noticias.style.display = "none";
+  mensajes.style.display = "none";
+  imagen.style.display = "flex";
 });
 
 // Agregar links
@@ -200,5 +210,31 @@ socket.on("mensajeEliminado", (msg) => {
 
 // Recibe errores
 socket.on("error", (msg) => {
-  printConsole(msg.error, "red");
+  if (msg.id == clientID) {
+    printConsole(msg.error, "red");
+  }
+});
+
+// Envia imagen del dia
+const botonSendImg = document.getElementById("boton-send-img");
+const imgDelDia = document.getElementById("imgDelDia");
+const textAreaImg = document.getElementById("inputDescImg");
+const inputImgDelDia = document.getElementById("inputImgDelDia");
+const autorImgDelDia = document.getElementById("inputAutorImg");
+const adminPassImg = document.getElementById("adminPassImg");
+
+botonSendImg.addEventListener("click", () => {
+  if (textAreaImg.value.length > 245) {
+    printConsole("Contenido de resumen supera los 245 caracteres", "red");
+    return;
+  }
+  let postImg = {
+    id: clientID,
+    adminPass: adminPassImg.value,
+    type: "postImagenDelDia",
+    imgUrl: inputImgDelDia.value,
+    descripcion: textAreaImg.value,
+    autor: autorImgDelDia.value,
+  };
+  socket.emit("mensaje", postImg);
 });

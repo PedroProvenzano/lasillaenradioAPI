@@ -11,6 +11,7 @@ const mensajeSocket = new SocketHandle(io);
 const cors = require("cors");
 const noticias = require("./rutas/noticias");
 const mensajes = require("./rutas/mensajes");
+const imagen = require("./rutas/imagen");
 // Syncs
 require("./conecciones/migraciones");
 
@@ -19,6 +20,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use("/noticias", noticias);
 app.use("/mensajes", mensajes);
+app.use("/imagen", imagen);
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
