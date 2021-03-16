@@ -136,7 +136,9 @@ class SocketHandle {
       }
       // Cargar imagen
       const imagenes = await Imagen.findAll();
-      imagenes.destroy();
+      if (imagenes != null) {
+        imagenes.destroy();
+      }
       Imagen.create({
         imgUrl: msg.imgUrl,
         descripcion: msg.descripcion,
