@@ -65,6 +65,10 @@ socket.on("mensajesNuevos", (msg) => {
       pNombre.setAttribute("class", "mensaje-nombre");
       pNombre.innerText = `Nombre: ${i.nombre}`;
       contDiv.append(pNombre);
+      let barrio = document.createElement("p");
+      barrio.setAttribute("class", "mensaje-barrio");
+      barrio.innerText = `Barrio: ${i.barrio}`;
+      contDiv.append(barrio);
       let pEmail = document.createElement("p");
       pEmail.setAttribute("class", "mensaje-email");
       pEmail.innerText = `Email: ${i.email}`;
