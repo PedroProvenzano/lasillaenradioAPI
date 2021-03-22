@@ -267,9 +267,9 @@ const inputRespuestaDos = document.getElementById("inputRespuestaDos");
 const inputRespuestaTres = document.getElementById("inputRespuestaTres");
 const inputSolucion = document.getElementById("inputSolucion");
 const inputAdminTrivia = document.getElementById("inputAdminPassTriv");
-const botonTrivia = document.getElementById("boton-send-trivia");
+const botonTriviaSend = document.getElementById("boton-send-trivia");
 
-botonTrivia.addEventListener("click", () => {
+botonTriviaSend.addEventListener("click", () => {
   let postTrivia = {
     id: clientID,
     adminPass: inputAdminTrivia.value,
