@@ -2,6 +2,7 @@ require("dotenv/config");
 const Noticia = require("../modelos/Noticia");
 const Mensaje = require("../modelos/Mensaje");
 const Imagen = require("../modelos/Imagen");
+const Trivia = require("../modelos/Trivia");
 class SocketHandle {
   constructor(io) {
     this.io = io;
@@ -150,6 +151,45 @@ class SocketHandle {
             msg: `Imagen del día cargada correctamente`,
           };
           this.io.emit("respPostNoticia", respImg);
+        })
+        .catch((err) => {
+          let respuesta = {
+            id: msg.id,
+            error: err,
+          };
+          this.io.emit("error", respuesta);
+          return;
+        });
+    }
+    if (msg.type == "postTrivia") {
+      if (msg.adminPass != process.env.ADMIN_PASS) {
+        let respuesta = {
+          id: msg.id,
+          error: `Admin pass incorrecta`,
+          boolCheck: false,
+        };
+        this.io.emit("error", respuesta);
+        return;
+      }
+      // Cargar Trivia
+      const trivias = await Trivia.findAll();
+      if (trivias.length > 0) {
+        Trivia.destroy({ where: { id: 1 } });
+      }
+      Trivia.create({
+        pregunta: msg.pregunta,
+        respuestaUno: msg.respuestaUno,
+        respuestaDos: msg.respuestaDos,
+        respuestaTres: msg.respuestaTres,
+        solucion: msg.solucion,
+      })
+        .then(() => {
+          let respTriv = {
+            id: msg.id,
+            msg: `Trivia creada correctamente`,
+          };
+          this.io.emit("respPostNoticia", respTriv);
+          return;
         })
         .catch((err) => {
           let respuesta = {

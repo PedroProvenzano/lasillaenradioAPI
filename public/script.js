@@ -101,28 +101,40 @@ socket.on("mensajesNuevos", (msg) => {
 const botonNoticias = document.getElementById("titulo-noticias");
 const botonMensajes = document.getElementById("titulo-mensajes");
 const botonImagen = document.getElementById("titulo-imagen");
+const botonTrivia = document.getElementById("titulo-trivia");
 
 // Escenas
 const noticias = document.getElementById("noticias");
 const mensajes = document.getElementById("mensajes");
 const imagen = document.getElementById("imagen");
+const trivia = document.getElementById("trivia");
 
 botonNoticias.addEventListener("click", () => {
   noticias.style.display = "flex";
   mensajes.style.display = "none";
   imagen.style.display = "none";
+  trivia.style.display = "none";
 });
 
 botonMensajes.addEventListener("click", () => {
   noticias.style.display = "none";
   mensajes.style.display = "flex";
   imagen.style.display = "none";
+  trivia.style.display = "none";
 });
 
 botonImagen.addEventListener("click", () => {
   noticias.style.display = "none";
   mensajes.style.display = "none";
   imagen.style.display = "flex";
+  trivia.style.display = "none";
+});
+
+botonTrivia.addEventListener("click", () => {
+  noticias.style.display = "none";
+  mensajes.style.display = "none";
+  imagen.style.display = "none";
+  trivia.style.display = "flex";
 });
 
 // Agregar links
@@ -245,4 +257,28 @@ botonSendImg.addEventListener("click", () => {
 
 inputImgDelDia.addEventListener("change", () => {
   imgDelDia.src = inputImgDelDia.value;
+});
+
+// Enviar Trivia del dia
+
+const inputPregunta = document.getElementById("inputPregunta");
+const inputRespuestaUno = document.getElementById("inputRespuestaUno");
+const inputRespuestaDos = document.getElementById("inputRespuestaDos");
+const inputRespuestaTres = document.getElementById("inputRespuestaTres");
+const inputSolucion = document.getElementById("inputSolucion");
+const inputAdminTrivia = document.getElementById("inputAdminPassTriv");
+const botonTrivia = document.getElementById("boton-send-trivia");
+
+botonTrivia.addEventListener("click", () => {
+  let postTrivia = {
+    id: clientID,
+    adminPass: inputAdminTrivia.value,
+    type: "postTrivia",
+    pregunta: inputPregunta.value,
+    respuestaUno: inputRespuestaUno.value,
+    respuestaDos: inputRespuestaDos.value,
+    respuestaTres: inputRespuestaTres.value,
+    solucion: inputSolucion.value,
+  };
+  socket.emit("mensaje", postTrivia);
 });

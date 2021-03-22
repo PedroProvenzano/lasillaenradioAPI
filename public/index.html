@@ -16,6 +16,7 @@
       <div class="titulo-noticias" id="titulo-noticias">Noticias</div>
       <div class="titulo-mensajes" id="titulo-mensajes">Mensajes</div>
       <div class="titulo-imagen" id="titulo-imagen">Imagen del dia</div>
+      <div class="titulo-trivia" id="titulo-trivia">Trivia</div>
     </div>
     <section class="noticias" id="noticias">
       <div class="aviso-cont" id="aviso-cont">
@@ -61,6 +62,9 @@
           <option value="deporte">Deporte</option>
           <option value="streaming">Streaming</option>
           <option value="espectaculo">Espectaculo</option>
+          <option value="vidasana">Vida sana</option>
+          <option value="medioambiente">Medio Ambiente</option>
+          <option value="genero">Género</option>
         </select>
         <p class="titulo-select">Importancia</p>
         <select name="importancia" id="importancia">
@@ -100,6 +104,15 @@
       <input type="text" id="inputAutorImg" placeholder="Autor.." />
       <input type="password" id="adminPassImg" placeholder="Admin pass.." />
       <div class="boton-send" id="boton-send-img">Enviar</div>
+    </section>
+    <section class="trivia" id="trivia">
+      <input type="text" id="inputPregunta" placeholder="Pregunta" />
+      <input type="text" id="inputRespuestaUno" placeholder="Respuesta A" />
+      <input type="text" id="inputRespuestaDos" placeholder="Respuesta B" />
+      <input type="text" id="inputRespuestaTres" placeholder="Respuesta C" />
+      <input type="text" id="inputSolucion" placeholder="Solución" />
+      <input type="password" id="inputAdminPassTriv" placeholder="Admin Pass" />
+      <div class="boton-send" id="boton-send-trivia">Enviar</div>
     </section>
     <script src="/socket.io/socket.io.js"></script>
     <script src="./script.js"></script>
