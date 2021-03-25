@@ -57,7 +57,7 @@ class SocketHandle {
         const notaVida = await Noticia.findOne({
           where: { temaPrincipal: msg.temaPrincipal },
         });
-        if (notaVida.length > 0) {
+        if (notaVida != null) {
           Noticia.destroy({ where: { temaPrincipal: msg.temaPrincipal } });
         }
       }
