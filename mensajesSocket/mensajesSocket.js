@@ -49,6 +49,18 @@ class SocketHandle {
           await noticiaEdit.reload();
         }
       }
+      if (
+        msg.temaPrincipal == "Vida sana" ||
+        msg.temaPrincipal == "Medio ambiente" ||
+        msg.temaPrincipal == "Genero"
+      ) {
+        const notaVida = await Noticia.findOne({
+          where: { temaPrincipal: msg.temaPrincipal },
+        });
+        if (notaVida.length > 0) {
+          Noticia.destroy({ where: { temaPrincipal: msg.temaPrincipal } });
+        }
+      }
       let fuenteEnviar;
       if (!msg.fuente) {
         fuenteEnviar = "Original";
