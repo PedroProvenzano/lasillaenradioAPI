@@ -6,13 +6,27 @@ let cryptedID = window.crypto.getRandomValues(arrayID);
 let clientID = cryptedID.toString("hex");
 // Admin pass Input
 const adminPass = document.getElementById("admin-pass");
+if (localStorage.adminPass) {
+  adminPass.value = localStorage.getItem("adminPass");
+}
 // Recibir mensajes
-let recibirMensaje = {
-  id: clientID,
-  type: "getMensajes",
-};
-socket.emit("mensaje", recibirMensaje);
+const botonRecibir = document.getElementById("boton-recibir");
+botonRecibir.addEventListener("click", () => {
+  recibirMensajes(adminPass.value);
+});
 
+function recibirMensajes(admin) {
+  let recibirMensaje = {
+    id: clientID,
+    type: "getMensajes",
+    adminPass: admin,
+  };
+  socket.emit("mensaje", recibirMensaje);
+}
+const botonSavePass = document.getElementById("saveButton");
+botonSavePass.addEventListener("click", () => {
+  localStorage.setItem("adminPass", adminPass.value);
+});
 const contenedorMensajes = document.getElementById("contenedor-mensajes");
 
 // Consola
@@ -35,7 +49,14 @@ function printConsole(message, color) {
     }, 200);
   }, 1000 * 10);
 }
-
+avisoBoton.addEventListener("click", () => {
+  setTimeout(() => {
+    avisoCont.style.opacity = "0";
+    setTimeout(() => {
+      avisoCont.style.display = "none";
+    }, 200);
+  }, 1000 * 10);
+});
 socket.on("mensajesNuevos", (msg) => {
   if (msg.id == clientID) {
     let arrayMsj = msg.mensajes;
@@ -237,7 +258,6 @@ const imgDelDia = document.getElementById("imgDelDia");
 const textAreaImg = document.getElementById("inputDescImg");
 const inputImgDelDia = document.getElementById("inputImgDelDia");
 const autorImgDelDia = document.getElementById("inputAutorImg");
-const adminPassImg = document.getElementById("adminPassImg");
 
 botonSendImg.addEventListener("click", () => {
   if (textAreaImg.value.length > 245) {
@@ -246,7 +266,7 @@ botonSendImg.addEventListener("click", () => {
   }
   let postImg = {
     id: clientID,
-    adminPass: adminPassImg.value,
+    adminPass: adminPass.value,
     type: "postImagenDelDia",
     imgUrl: inputImgDelDia.value,
     descripcion: textAreaImg.value,
@@ -266,13 +286,12 @@ const inputRespuestaUno = document.getElementById("inputRespuestaUno");
 const inputRespuestaDos = document.getElementById("inputRespuestaDos");
 const inputRespuestaTres = document.getElementById("inputRespuestaTres");
 const inputSolucion = document.getElementById("inputSolucion");
-const inputAdminTrivia = document.getElementById("inputAdminPassTriv");
 const botonTriviaSend = document.getElementById("boton-send-trivia");
 
 botonTriviaSend.addEventListener("click", () => {
   let postTrivia = {
     id: clientID,
-    adminPass: inputAdminTrivia.value,
+    adminPass: adminPass.value,
     type: "postTrivia",
     pregunta: inputPregunta.value,
     respuestaUno: inputRespuestaUno.value,

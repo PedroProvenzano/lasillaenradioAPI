@@ -6,7 +6,34 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+.cont-admin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+#admin-pass {
+  width: 90%;
+  font-size: 2vw;
+  padding: 5px;
+}
+.saveButton {
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  height: 100%;
+  font-size: 1.2vw;
+  padding: 5px;
+  border: black 3px solid;
+  background-color: rgb(133, 209, 133);
+}
+.saveButton:hover {
+  cursor: pointer;
+  font-weight: 700;
+}
 body {
   display: flex;
   flex-direction: column;
@@ -132,6 +159,21 @@ select {
   width: 80%;
   height: 100%;
   overflow-y: scroll;
+}
+.boton-recibir {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: black 3px outset;
+  background-color: darksalmon;
+  height: 50px;
+  width: 15vw;
+  user-select: none;
+}
+.boton-recibir:hover {
+  font-weight: 700;
+  cursor: pointer;
 }
 .mensaje {
   margin-top: 0.4rem;

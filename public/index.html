@@ -12,18 +12,22 @@
     <title>API LaSilla</title>
   </head>
   <body>
+    <div class="cont-admin">
+      <input type="password" placeholder="Admin Pass" id="admin-pass" />
+      <div class="saveButton" id="saveButton">Guardar</div>
+    </div>
     <div class="titulo-cont">
       <div class="titulo-noticias" id="titulo-noticias">Noticias</div>
       <div class="titulo-mensajes" id="titulo-mensajes">Mensajes</div>
       <div class="titulo-imagen" id="titulo-imagen">Imagen del dia</div>
       <div class="titulo-trivia" id="titulo-trivia">Trivia</div>
     </div>
+    <div class="aviso-cont" id="aviso-cont">
+      <p id="aviso-titulo">Aviso</p>
+      <p id="aviso-texto">Contenido del aviso</p>
+      <div id="aviso-boton">Ok</div>
+    </div>
     <section class="noticias" id="noticias">
-      <div class="aviso-cont" id="aviso-cont">
-        <p id="aviso-titulo">Aviso</p>
-        <p id="aviso-texto">Contenido del aviso</p>
-        <div id="aviso-boton">Ok</div>
-      </div>
       <div class="form-cont">
         <input type="text" placeholder="Titulo" id="titulo" />
         <textarea
@@ -76,11 +80,11 @@
         </select>
         <input type="text" placeholder="Autor" id="autor" />
         <input type="text" placeholder="Fuente" id="fuente" />
-        <input type="password" placeholder="Admin Pass" id="admin-pass" />
       </div>
       <div class="boton-send" id="boton-send">Enviar</div>
     </section>
     <section class="mensajes" id="mensajes">
+      <div class="boton-recibir" id="boton-recibir">Recibir Mensajes</div>
       <div class="contenedor-mensajes" id="contenedor-mensajes">
         <div>
           <p class="no-hay-mensajes">Todavia no hay mensajes</p>
@@ -102,7 +106,6 @@
         id="inputImgDelDia"
       />
       <input type="text" id="inputAutorImg" placeholder="Autor.." />
-      <input type="password" id="adminPassImg" placeholder="Admin pass.." />
       <div class="boton-send" id="boton-send-img">Enviar</div>
     </section>
     <section class="trivia" id="trivia">
@@ -111,7 +114,6 @@
       <input type="text" id="inputRespuestaDos" placeholder="Respuesta B" />
       <input type="text" id="inputRespuestaTres" placeholder="Respuesta C" />
       <input type="text" id="inputSolucion" placeholder="Solución" />
-      <input type="password" id="inputAdminPassTriv" placeholder="Admin Pass" />
       <div class="boton-send" id="boton-send-trivia">Enviar</div>
     </section>
     <script src="/socket.io/socket.io.js"></script>
