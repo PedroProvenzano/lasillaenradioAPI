@@ -96,6 +96,14 @@ class SocketHandle {
         });
     }
     if (msg.type == "getMensajes") {
+      if (msg.adminPass != process.env.ADMIN_PASS) {
+        let respuesta = {
+          id: msg.id,
+          error: `Admin pass incorrecta`,
+        };
+        this.io.emit("error", respuesta);
+        return;
+      }
       const mensajes = await Mensaje.findAll();
       let respuesta = {
         id: msg.id,
