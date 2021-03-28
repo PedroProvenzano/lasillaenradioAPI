@@ -50,12 +50,10 @@ function printConsole(message, color) {
   }, 1000 * 10);
 }
 avisoBoton.addEventListener("click", () => {
+  avisoCont.style.opacity = "0";
   setTimeout(() => {
-    avisoCont.style.opacity = "0";
-    setTimeout(() => {
-      avisoCont.style.display = "none";
-    }, 200);
-  }, 1000 * 10);
+    avisoCont.style.display = "none";
+  }, 200);
 });
 socket.on("mensajesNuevos", (msg) => {
   if (msg.id == clientID) {
