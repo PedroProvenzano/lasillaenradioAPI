@@ -225,6 +225,18 @@ botonSend.addEventListener("click", () => {
 socket.on("respPostNoticia", (msg) => {
   if (msg.id == clientID) {
     printConsole(msg.msg, "green");
+    let linksDom = document.getElementsByClassName("editLinksInput");
+    titulo.value = "";
+    contenido.value = "";
+    contenidoRes.value = "";
+    for (let i of linksDom) {
+      i.value = "";
+    }
+    tags.value = "";
+    temaPrincipal.selectedIndex = "0";
+    importancia.selectedIndex = "0";
+    autor.value = "";
+    fuente.value = "";
   }
 });
 
@@ -302,6 +314,7 @@ botonTriviaSend.addEventListener("click", () => {
 // Buscador de noticias
 const inputBuscador = document.getElementById("buscador-input");
 const botonBuscar = document.getElementById("boton-buscar");
+const noticiaId = document.getElementById("noticia-id");
 
 botonBuscar.addEventListener("click", () => {
   let msgEdit = {
@@ -316,5 +329,96 @@ botonBuscar.addEventListener("click", () => {
 
 // Recibir la noticia
 socket.on("noticiaAEditar", (msg) => {
-  console.log(msg);
+  titulo.value = msg.noticia.titulo;
+  contenido.value = msg.noticia.contenido;
+  contenidoRes.value = msg.noticia.contenidoRes;
+  tags.value = msg.noticia.tags;
+  fuente.value = msg.noticia.fuente;
+  autor.value = msg.noticia.autor;
+  noticiaId.value = msg.noticia.id;
+  switch (msg.noticia.temaPrincipal) {
+    case "actualidad":
+      temaPrincipal.selectedIndex = 0;
+      break;
+    case "cultura":
+      temaPrincipal.selectedIndex = 1;
+      break;
+    case "deporte":
+      temaPrincipal.selectedIndex = 2;
+      break;
+    case "streaming":
+      temaPrincipal.selectedIndex = 3;
+      break;
+    case "espectaculo":
+      temaPrincipal.selectedIndex = 4;
+      break;
+    case "vida sana":
+      temaPrincipal.selectedIndex = 5;
+      break;
+    case "medio ambiente":
+      temaPrincipal.selectedIndex = 6;
+      break;
+    case "genero":
+      temaPrincipal.selectedIndex = 7;
+      break;
+  }
+  switch (msg.noticia.importancia) {
+    case "normal":
+      importancia.selectedIndex = 0;
+      break;
+    case "importante1":
+      importancia.selectedIndex = 1;
+      break;
+    case "importante2":
+      importancia.selectedIndex = 2;
+      break;
+    case "importante3":
+      importancia.selectedIndex = 3;
+      break;
+    case "importante4":
+      importancia.selectedIndex = 4;
+      break;
+  }
+  noticias.style.backgroundColor = "rgb(98, 98, 252)";
+});
+
+const botonMandarEditar = document.getElementById("boton-editar");
+
+botonMandarEditar.addEventListener("click", () => {
+  let imagenesFinalEdit = [];
+  let linksDom = document.getElementsByClassName("editLinksInput");
+  for (let i of linksDom) {
+    imagenesFinal.push(i.value);
+  }
+  imagenesFinalEdit = JSON.stringify(imagenesFinalEdit);
+  let tagsFinalEdit = `[${tags.value}]`;
+  let msgEditar = {
+    id: clientID,
+    type: "postNoticia",
+    adminPass: adminPass.value,
+    noticiaId: noticiaId.value,
+    titulo: titulo.value,
+    contenido: contenido.value,
+    contenidoRes: contenidoRes.value,
+    imagenesUrl: imagenesFinalEdit,
+    tags: tagsFinalEdit,
+    temaPrincipal: temaPrincipal.value,
+    importancia: importancia.value,
+    autor: autor.value,
+    fuente: fuente.value,
+  };
+  socket.emit("mensaje", msgEditar);
+  noticias.style.backgroundColor = "rgb(255, 224, 195)";
+  titulo.value = "";
+  contenido.value = "";
+  contenidoRes.value = "";
+  for (let i of linksDom) {
+    i.value = "";
+  }
+  tags.value = "";
+  temaPrincipal.selectedIndex = "0";
+  importancia.selectedIndex = "0";
+  autor.value = "";
+  fuente.value = "";
+  noticiaId = "";
 });

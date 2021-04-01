@@ -59,7 +59,12 @@ class SocketHandle {
         this.io.emit("error", respuesta);
         return;
       }
-
+      if (msg.noticiaId) {
+        const noticiaDelete = await Noticia.findOne({
+          where: { id: msg.noticiaId },
+        });
+        noticiaDelete.destroy();
+      }
       if (
         msg.importancia == "importante1" ||
         msg.importancia == "importante2" ||

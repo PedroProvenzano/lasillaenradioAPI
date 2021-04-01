@@ -148,7 +148,9 @@ select {
 #boton-editar {
   background-color: rgb(123, 123, 255);
 }
-
+.hiddenID {
+  display: none;
+}
 .buscador-noticias {
   position: relative;
   width: auto;
