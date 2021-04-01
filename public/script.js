@@ -420,5 +420,5 @@ botonMandarEditar.addEventListener("click", () => {
   importancia.selectedIndex = "0";
   autor.value = "";
   fuente.value = "";
-  noticiaId = "";
+  noticiaId.value = "";
 });
