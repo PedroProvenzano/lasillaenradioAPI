@@ -298,3 +298,22 @@ botonTriviaSend.addEventListener("click", () => {
   };
   socket.emit("mensaje", postTrivia);
 });
+
+// Buscador de noticias
+const inputBuscador = document.getElementById("buscador-input");
+const botonBuscar = document.getElementById("boton-buscar");
+
+botonBuscar.addEventListener("click", () => {
+  let msgEdit = {
+    id: clientID,
+    titulo: inputBuscador.value,
+    type: "conseguirNoticia",
+  };
+  socket.emit("mensaje", msgEdit);
+  inputBuscador.value = "";
+});
+
+// Recibir la noticia
+socket.on("noticiaAEditar", (msg) => {
+  console.log(msg);
+});

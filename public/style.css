@@ -140,6 +140,37 @@ select {
   cursor: pointer;
   border: 3px black outset;
 }
+.cont-botones-noticia {
+  display: flex;
+  width: 20vw;
+  justify-content: space-around;
+}
+#boton-editar {
+  background-color: rgb(123, 123, 255);
+}
+
+.buscador-noticias {
+  position: relative;
+  width: auto;
+  top: -40vw;
+  left: -35vw;
+  border: outset 0.5vw grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.137);
+}
+.buscador-noticias input {
+  padding: 0.2vw;
+  margin: 1vw;
+  width: 15vw;
+  font-size: 1.2vw;
+}
+#boton-buscar {
+  background-color: rgb(123, 123, 255);
+  margin-bottom: 0.5vw;
+}
 
 /* Mensajes */
 .mensajes {
@@ -279,8 +310,9 @@ select {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
+  overflow-y: scroll;
+  height: 9vw;
 }
 .input-linkUno-cont {
   display: flex;

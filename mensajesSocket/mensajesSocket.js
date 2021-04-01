@@ -9,6 +9,31 @@ class SocketHandle {
   }
 
   async HandleDatabase(msg) {
+    if (msg.type == "conseguirNoticia") {
+      if (msg.adminPass != process.env.ADMIN_PASS) {
+        let respuesta = {
+          id: msg.id,
+          error: `Admin pass incorrecta`,
+          boolCheck: false,
+        };
+        this.io.emit("error", respuesta);
+        return;
+      }
+      const noticia = await Noticia.findOne({ where: { titulo: msg.titulo } });
+      if (noticia != null) {
+        let msgEdit = {
+          id: msg.id,
+          noticia: noticia,
+        };
+        this.io.emit("noticiaAEditar", msgEdit);
+      } else {
+        let errEdit = {
+          id: msg.id,
+          msg: `Noticia no encontrada`,
+        };
+        this.io.emit("error", errEdit);
+      }
+    }
     if (msg.type == "postNoticia") {
       if (msg.adminPass != process.env.ADMIN_PASS) {
         let respuesta = {
