@@ -34,7 +34,7 @@ const avisoCont = document.getElementById("aviso-cont");
 const avisoTitulo = document.getElementById("aviso-titulo");
 const avisoTexto = document.getElementById("aviso-texto");
 const avisoBoton = document.getElementById("aviso-boton");
-// Funcion
+// Function
 function printConsole(message, color) {
   avisoTitulo.style.color = color;
   avisoTexto.innerText = message;
