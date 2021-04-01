@@ -388,7 +388,7 @@ botonMandarEditar.addEventListener("click", () => {
   let imagenesFinalEdit = [];
   let linksDom = document.getElementsByClassName("editLinksInput");
   for (let i of linksDom) {
-    imagenesFinal.push(i.value);
+    imagenesFinalEdit.push(i.value);
   }
   imagenesFinalEdit = JSON.stringify(imagenesFinalEdit);
   let tagsFinalEdit = `[${tags.value}]`;
