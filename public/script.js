@@ -308,6 +308,7 @@ botonBuscar.addEventListener("click", () => {
     id: clientID,
     titulo: inputBuscador.value,
     type: "conseguirNoticia",
+    adminPass: adminPass.value,
   };
   socket.emit("mensaje", msgEdit);
   inputBuscador.value = "";
