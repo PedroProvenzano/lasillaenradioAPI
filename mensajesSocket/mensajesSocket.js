@@ -97,6 +97,7 @@ class SocketHandle {
       } else {
         fuenteEnviar = msg.fuente;
       }
+      console.log(msg.imagenesUrl);
       Noticia.create({
         titulo: msg.titulo,
         contenido: msg.contenido,

@@ -201,10 +201,12 @@ botonSend.addEventListener("click", () => {
   let linksDom = document.getElementsByClassName("editLinksInput");
   for (let i of linksDom) {
     if (i.value != "") {
+      console.log(i.value);
       imagenesFinal.push(i.value);
     }
   }
   imagenesFinal = JSON.stringify(imagenesFinal);
+  console.log(imagenesFinal);
   tagsFinal = `[${tags.value}]`;
   let postNoticia = {
     id: clientID,
