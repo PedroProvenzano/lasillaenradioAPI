@@ -67,7 +67,7 @@ class SocketHandle {
       const noticiaCheck = await Noticia.findOne({
         where: { titulo: msg.titulo },
       });
-      if (msg.titulo == noticiaCheck.titulo) {
+      if (noticiaCheck) {
         let respuesta = {
           id: msg.id,
           error: `Noticia ya existe`,
