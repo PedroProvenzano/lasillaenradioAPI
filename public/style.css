@@ -148,6 +148,9 @@ select {
 #boton-editar {
   background-color: rgb(123, 123, 255);
 }
+#boton-eliminar {
+  background-color: red;
+}
 .hiddenID {
   display: none;
 }

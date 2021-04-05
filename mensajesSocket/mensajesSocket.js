@@ -9,6 +9,27 @@ class SocketHandle {
   }
 
   async HandleDatabase(msg) {
+    if (msg.type == "eliminarNoticia") {
+      if (msg.adminPass != process.env.ADMIN_PASS) {
+        let respuesta = {
+          id: msg.id,
+          error: `Admin pass incorrecta`,
+          boolCheck: false,
+        };
+        this.io.emit("error", respuesta);
+        return;
+      }
+      const noticiaDelete = await Noticia.findOne({
+        where: { id: msg.noticiaId },
+      });
+      noticiaDelete.destroy();
+      let mensajeDel = {
+        id: msg.id,
+        msg: `Eliminado correctamente`,
+      };
+      this.io.emit("respPostNoticia", mensajeDel);
+      return;
+    }
     if (msg.type == "conseguirNoticia") {
       if (msg.adminPass != process.env.ADMIN_PASS) {
         let respuesta = {
@@ -43,7 +64,17 @@ class SocketHandle {
         this.io.emit("error", respuesta);
         return;
       }
-
+      const noticiaCheck = await Noticia.findOne({
+        where: { titulo: msg.titulo },
+      });
+      if (msg.titulo == noticiaCheck.titulo) {
+        let respuesta = {
+          id: msg.id,
+          error: `Noticia ya existe`,
+        };
+        this.io.emit("error", respuesta);
+        return;
+      }
       if (
         msg.titulo == "" ||
         msg.contenido == "" ||
