@@ -336,7 +336,7 @@ socket.on("noticiaAEditar", (msg) => {
   contenidoRes.value = msg.noticia.contenidoRes;
   // tags
   let finishTag = msg.noticia.tags.slice(0, msg.noticia.tags.length - 1);
-  finishTag = finishTag.slice(1, prueba.length);
+  finishTag = finishTag.slice(1, finishTag.length);
   tags.value = finishTag;
   fuente.value = msg.noticia.fuente;
   autor.value = msg.noticia.autor;
