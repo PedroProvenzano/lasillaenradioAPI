@@ -1,4 +1,4 @@
-require("./conecciones/connection");
+require("./conexiones/connection");
 require("dotenv/config");
 const express = require("express");
 const app = express();
@@ -14,7 +14,7 @@ const mensajes = require("./rutas/mensajes");
 const imagen = require("./rutas/imagen");
 const trivia = require("./rutas/trivia");
 // Syncs
-require("./conecciones/migraciones");
+require("./conexiones/migraciones");
 
 // Middlewares
 app.use(cors());

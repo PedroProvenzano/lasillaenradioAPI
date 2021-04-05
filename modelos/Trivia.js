@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require("sequelize");
-const sequelize = require("../conecciones/connection");
+const sequelize = require("../conexiones/connection");
 
 class Trivia extends Model {}
 
