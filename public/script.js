@@ -200,7 +200,9 @@ botonSend.addEventListener("click", () => {
   imagenesFinal = [];
   let linksDom = document.getElementsByClassName("editLinksInput");
   for (let i of linksDom) {
-    imagenesFinal.push(i.value);
+    if (i.value != "") {
+      imagenesFinal.push(i.value);
+    }
   }
   imagenesFinal = JSON.stringify(imagenesFinal);
   tagsFinal = `[${tags.value}]`;
