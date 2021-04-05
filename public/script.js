@@ -201,12 +201,10 @@ botonSend.addEventListener("click", () => {
   let linksDom = document.getElementsByClassName("editLinksInput");
   for (let i of linksDom) {
     if (i.value != "") {
-      console.log(i.value);
       imagenesFinal.push(i.value);
     }
   }
   imagenesFinal = JSON.stringify(imagenesFinal);
-  console.log(imagenesFinal);
   tagsFinal = `[${tags.value}]`;
   let postNoticia = {
     id: clientID,
@@ -392,7 +390,9 @@ botonMandarEditar.addEventListener("click", () => {
   let imagenesFinalEdit = [];
   let linksDom = document.getElementsByClassName("editLinksInput");
   for (let i of linksDom) {
-    imagenesFinalEdit.push(i.value);
+    if (i.value != "") {
+      imagenesFinalEdit.push(i.value);
+    }
   }
   imagenesFinalEdit = JSON.stringify(imagenesFinalEdit);
   let tagsFinalEdit = `[${tags.value}]`;
