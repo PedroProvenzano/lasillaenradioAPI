@@ -3,12 +3,21 @@ const Noticia = require("../modelos/Noticia");
 const Mensaje = require("../modelos/Mensaje");
 const Imagen = require("../modelos/Imagen");
 const Trivia = require("../modelos/Trivia");
+const Visita = require("../modelos/Visita");
 class SocketHandle {
   constructor(io) {
     this.io = io;
   }
 
   async HandleDatabase(msg) {
+    if (msg.type == "contador") {
+      let visitaData = await Visita.findOne({ where: { id: 1 } });
+      this.io.emit("contador", {
+        id: msg.id,
+        numerovisitas: visitaData.numerovisitas,
+      });
+      return;
+    }
     if (msg.type == "eliminarNoticia") {
       if (msg.adminPass != process.env.ADMIN_PASS) {
         let respuesta = {

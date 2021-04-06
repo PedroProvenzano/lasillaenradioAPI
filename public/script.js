@@ -456,3 +456,17 @@ botonEliminar.addEventListener("click", () => {
   fuente.value = "";
   noticiaId.value = "";
 });
+
+// Contador visitas
+const contadorVisitas = document.getElementById("contador-visitas");
+
+socket.emit("mensaje", {
+  id: clientID,
+  type: "contador",
+});
+
+socket.on("contador", (msg) => {
+  if (msg.id == clientID) {
+    contadorVisitas.innerText = `Numero de visitas: ${msg.numerovisitas}`;
+  }
+});

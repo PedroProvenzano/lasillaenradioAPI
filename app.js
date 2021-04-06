@@ -13,6 +13,7 @@ const noticias = require("./rutas/noticias");
 const mensajes = require("./rutas/mensajes");
 const imagen = require("./rutas/imagen");
 const trivia = require("./rutas/trivia");
+const visitas = require("./rutas/visitas");
 // Syncs
 require("./conexiones/migraciones");
 
@@ -23,6 +24,7 @@ app.use("/noticias", noticias);
 app.use("/mensajes", mensajes);
 app.use("/imagen", imagen);
 app.use("/trivia", trivia);
+app.use("/visitas", visitas);
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
