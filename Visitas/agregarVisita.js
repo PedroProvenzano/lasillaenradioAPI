@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
       });
   } else {
     visitaData.numerovisitas += 1;
-    await visitaData.save({ fields: numerovisitas });
+    await visitaData.save({ fields: ["numerovisitas"] });
     await visitaData.reload();
     console.log("Nueva visita!");
     return res.status(200).send("Visita!");
