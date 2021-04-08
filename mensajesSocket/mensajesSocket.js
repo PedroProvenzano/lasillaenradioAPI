@@ -110,7 +110,8 @@ class SocketHandle {
       if (
         msg.importancia == "importante1" ||
         msg.importancia == "importante2" ||
-        msg.importancia == "importante3"
+        msg.importancia == "importante3" ||
+        msg.importancia == "importante4"
       ) {
         const noticiaEdit = await Noticia.findOne({
           where: { importancia: msg.importancia },
@@ -266,7 +267,7 @@ class SocketHandle {
       // Cargar Trivia
       const trivias = await Trivia.findAll();
       if (trivias.length > 0) {
-        Trivia.destroy({ where: { id: 1 } });
+        Trivia.destroy({ where: {} });
       }
       Trivia.create({
         pregunta: msg.pregunta,

@@ -187,7 +187,7 @@ const temaPrincipal = document.getElementById("temaPrincipal");
 const importancia = document.getElementById("importancia");
 const autor = document.getElementById("autor");
 const fuente = document.getElementById("fuente");
-
+const contenedorBotones = document.getElementById("botones-contenedor");
 let imagenesFinal;
 
 let tagsFinal;
@@ -203,6 +203,10 @@ botonSend.addEventListener("click", () => {
     if (i.value != "") {
       imagenesFinal.push(i.value);
     }
+  }
+  if (imagenesFinal.length == 0) {
+    printConsole("Faltan imagenes", "red");
+    return;
   }
   imagenesFinal = JSON.stringify(imagenesFinal);
   tagsFinal = `[${tags.value}]`;
@@ -221,6 +225,7 @@ botonSend.addEventListener("click", () => {
     fuente: fuente.value,
   };
   socket.emit("mensaje", postNoticia);
+  contenedorBotones.style.display = "none";
 });
 
 // Recibe respuesta de mensaje
@@ -239,6 +244,7 @@ socket.on("respPostNoticia", (msg) => {
     importancia.selectedIndex = "0";
     autor.value = "";
     fuente.value = "";
+    contenedorBotones.style.display = "flex";
   }
 });
 
@@ -260,6 +266,7 @@ socket.on("mensajeEliminado", (msg) => {
 socket.on("error", (msg) => {
   if (msg.id == clientID) {
     printConsole(msg.error, "red");
+    contenedorBotones.style.display = "flex";
   }
 });
 
@@ -415,6 +422,7 @@ botonMandarEditar.addEventListener("click", () => {
     fuente: fuente.value,
   };
   socket.emit("mensaje", msgEditar);
+  contenedorBotones.style.display = "none";
   noticias.style.backgroundColor = "rgb(255, 224, 195)";
   titulo.value = "";
   contenido.value = "";
