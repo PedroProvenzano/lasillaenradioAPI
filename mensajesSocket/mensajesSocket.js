@@ -231,7 +231,7 @@ class SocketHandle {
       // Cargar imagen
       const imagenes = await Imagen.findAll();
       if (imagenes.length > 0) {
-        Imagen.destroy({ where: { id: 1 } });
+        Imagen.destroy({ where: {} });
       }
       Imagen.create({
         imgUrl: msg.imgUrl,
