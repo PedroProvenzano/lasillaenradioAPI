@@ -310,7 +310,7 @@ class SocketHandle {
       // Cargar meme
       const memes = await Meme.findAll();
       if (memes.length > 0) {
-        memes.destroy({ where: {} });
+        Meme.destroy({ where: {} });
       }
       Meme.create({
         imgUrl: msg.imgUrl,
