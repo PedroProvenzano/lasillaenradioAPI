@@ -385,6 +385,7 @@ select {
   align-items: center;
   justify-content: space-around;
   height: 90vh;
+  width: 100vw;
   background-color: darkkhaki;
 }
 .meme img {
