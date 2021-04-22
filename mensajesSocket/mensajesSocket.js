@@ -4,6 +4,7 @@ const Mensaje = require("../modelos/Mensaje");
 const Imagen = require("../modelos/Imagen");
 const Trivia = require("../modelos/Trivia");
 const Visita = require("../modelos/Visita");
+const Meme = require("../modelos/Meme");
 class SocketHandle {
   constructor(io) {
     this.io = io;
@@ -111,7 +112,9 @@ class SocketHandle {
         msg.importancia == "importante1" ||
         msg.importancia == "importante2" ||
         msg.importancia == "importante3" ||
-        msg.importancia == "importante4"
+        msg.importancia == "importante4" ||
+        msg.importancia == "importante5" ||
+        msg.importancia == "importante6"
       ) {
         const noticiaEdit = await Noticia.findOne({
           where: { importancia: msg.importancia },
@@ -283,6 +286,41 @@ class SocketHandle {
           };
           this.io.emit("respPostNoticia", respTriv);
           return;
+        })
+        .catch((err) => {
+          let respuesta = {
+            id: msg.id,
+            error: err,
+          };
+          this.io.emit("error", respuesta);
+          return;
+        });
+    }
+    // Memes
+    if (msg.type == "postMeme") {
+      if (msg.adminPass != process.env.ADMIN_PASS) {
+        let respuesta = {
+          id: msg.id,
+          error: `Admin pass incorrecta`,
+          boolCheck: false,
+        };
+        this.io.emit("error", respuesta);
+        return;
+      }
+      // Cargar meme
+      const memes = await Meme.findAll();
+      if (memes.length > 0) {
+        memes.destroy({ where: {} });
+      }
+      Meme.create({
+        imgUrl: msg.imgUrl,
+      })
+        .then(() => {
+          let respImg = {
+            id: msg.id,
+            msg: `Meme cargado correctamente`,
+          };
+          this.io.emit("respPostNoticia", respImg);
         })
         .catch((err) => {
           let respuesta = {

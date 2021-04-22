@@ -14,6 +14,7 @@ const mensajes = require("./rutas/mensajes");
 const imagen = require("./rutas/imagen");
 const trivia = require("./rutas/trivia");
 const visitas = require("./rutas/visitas");
+const meme = require("./rutas/meme");
 // Syncs
 require("./conexiones/migraciones");
 
@@ -25,6 +26,7 @@ app.use("/mensajes", mensajes);
 app.use("/imagen", imagen);
 app.use("/trivia", trivia);
 app.use("/visitas", visitas);
+app.use("/meme", meme);
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {

@@ -120,18 +120,21 @@ const botonNoticias = document.getElementById("titulo-noticias");
 const botonMensajes = document.getElementById("titulo-mensajes");
 const botonImagen = document.getElementById("titulo-imagen");
 const botonTrivia = document.getElementById("titulo-trivia");
+const botonMemes = document.getElementById("titulo-memes");
 
 // Escenas
 const noticias = document.getElementById("noticias");
 const mensajes = document.getElementById("mensajes");
 const imagen = document.getElementById("imagen");
 const trivia = document.getElementById("trivia");
+const meme = document.getElementById("meme");
 
 botonNoticias.addEventListener("click", () => {
   noticias.style.display = "flex";
   mensajes.style.display = "none";
   imagen.style.display = "none";
   trivia.style.display = "none";
+  meme.style.display = "none";
 });
 
 botonMensajes.addEventListener("click", () => {
@@ -139,6 +142,7 @@ botonMensajes.addEventListener("click", () => {
   mensajes.style.display = "flex";
   imagen.style.display = "none";
   trivia.style.display = "none";
+  meme.style.display = "none";
 });
 
 botonImagen.addEventListener("click", () => {
@@ -146,6 +150,7 @@ botonImagen.addEventListener("click", () => {
   mensajes.style.display = "none";
   imagen.style.display = "flex";
   trivia.style.display = "none";
+  meme.style.display = "none";
 });
 
 botonTrivia.addEventListener("click", () => {
@@ -153,6 +158,15 @@ botonTrivia.addEventListener("click", () => {
   mensajes.style.display = "none";
   imagen.style.display = "none";
   trivia.style.display = "flex";
+  meme.style.display = "none";
+});
+
+botonMemes.addEventListener("click", () => {
+  noticias.style.display = "none";
+  mensajes.style.display = "none";
+  imagen.style.display = "none";
+  trivia.style.display = "none";
+  meme.style.display = "flex";
 });
 
 // Agregar links
@@ -477,4 +491,23 @@ socket.on("contador", (msg) => {
   if (msg.id == clientID) {
     contadorVisitas.innerText = `Numero de visitas: ${msg.numerovisitas}`;
   }
+});
+
+// Memes
+const ImgMemes = document.getElementById("imgMeme");
+const inputImgMemes = document.getElementById("inputImgMeme");
+const botonSendMemes = document.getElementById("boton-send-meme");
+
+botonSendMemes.addEventListener("click", () => {
+  let postMeme = {
+    id: clientID,
+    adminPass: adminPass.value,
+    type: "postMeme",
+    imgUrl: inputImgMemes.value,
+  };
+  socket.emit("mensaje", postMeme);
+});
+
+inputImgMemes.addEventListener("change", () => {
+  ImgMemes.src = inputImgMemes.value;
 });
