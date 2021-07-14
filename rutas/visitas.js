@@ -7,4 +7,6 @@ const router = express.Router();
 const visitas = require("../Visitas/agregarVisita");
 router.use("/add", visitas);
 
+const crearVisitas = require("../Visitas/crearVisitas");
+router.use("/crear", crearVisitas);
 module.exports = router;

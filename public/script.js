@@ -488,6 +488,7 @@ socket.emit("mensaje", {
 });
 
 socket.on("contador", (msg) => {
+  console.log(msg);
   if (msg.id == clientID) {
     contadorVisitas.innerText = `Numero de visitas: ${msg.numerovisitas}`;
   }

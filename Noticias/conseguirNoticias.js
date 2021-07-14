@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const Noticia = require("../modelos/Noticia");
+const Noticia = require("../modelos/modelosMongo/Noticia");
 
 router.get("/", async (req, res) => {
-  const noticias = await Noticia.findAll();
-  return res.status(200).json(noticias);
+  try {
+    const noticias = await Noticia.find();
+    return res.status(200).json(noticias);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;

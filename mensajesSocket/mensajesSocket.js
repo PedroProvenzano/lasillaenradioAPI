@@ -1,10 +1,10 @@
 require("dotenv/config");
-const Noticia = require("../modelos/Noticia");
-const Mensaje = require("../modelos/Mensaje");
-const Imagen = require("../modelos/Imagen");
-const Trivia = require("../modelos/Trivia");
-const Visita = require("../modelos/Visita");
-const Meme = require("../modelos/Meme");
+const Noticia = require("../modelos/modelosMongo/Noticia");
+const Mensaje = require("../modelos/modelosMongo/Mensaje");
+const Imagen = require("../modelos/modelosMongo/Imagen");
+const Trivia = require("../modelos/modelosMongo/Trivia");
+const Visita = require("../modelos/modelosMongo/Visita");
+const Meme = require("../modelos/modelosMongo/Meme");
 class SocketHandle {
   constructor(io) {
     this.io = io;
@@ -12,12 +12,16 @@ class SocketHandle {
 
   async HandleDatabase(msg) {
     if (msg.type == "contador") {
-      let visitaData = await Visita.findOne({ where: { id: 1 } });
-      this.io.emit("contador", {
-        id: msg.id,
-        numerovisitas: visitaData.numerovisitas,
+      await Visita.find((err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        this.io.emit("contador", {
+          id: msg.id,
+          numerovisitas: result[0].numerovisitas,
+        });
+        return;
       });
-      return;
     }
     if (msg.type == "eliminarNoticia") {
       if (msg.adminPass != process.env.ADMIN_PASS) {
@@ -29,16 +33,23 @@ class SocketHandle {
         this.io.emit("error", respuesta);
         return;
       }
-      const noticiaDelete = await Noticia.findOne({
-        where: { id: msg.noticiaId },
-      });
-      noticiaDelete.destroy();
-      let mensajeDel = {
-        id: msg.id,
-        msg: `Eliminado correctamente`,
-      };
-      this.io.emit("respPostNoticia", mensajeDel);
-      return;
+      Noticia.deleteOne(
+        {
+          id: msg.noticiaId,
+        },
+        (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            let mensajeDel = {
+              id: msg.id,
+              msg: `Eliminado correctamente`,
+            };
+            this.io.emit("respPostNoticia", mensajeDel);
+            return;
+          }
+        }
+      );
     }
     if (msg.type == "conseguirNoticia") {
       if (msg.adminPass != process.env.ADMIN_PASS) {
@@ -50,20 +61,22 @@ class SocketHandle {
         this.io.emit("error", respuesta);
         return;
       }
-      const noticia = await Noticia.findOne({ where: { titulo: msg.titulo } });
-      if (noticia != null) {
-        let msgEdit = {
-          id: msg.id,
-          noticia: noticia,
-        };
-        this.io.emit("noticiaAEditar", msgEdit);
-      } else {
-        let errEdit = {
-          id: msg.id,
-          msg: `Noticia no encontrada`,
-        };
-        this.io.emit("error", errEdit);
-      }
+      Noticia.findOne({ titulo: msg.titulo }, (err, result) => {
+        if (err) {
+          console.log(err);
+          let errEdit = {
+            id: msg.id,
+            msg: `Noticia no encontrada`,
+          };
+          this.io.emit("error", errEdit);
+        } else {
+          let msgEdit = {
+            id: msg.id,
+            noticia: result,
+          };
+          this.io.emit("noticiaAEditar", msgEdit);
+        }
+      });
     }
     if (msg.type == "postNoticia") {
       if (msg.adminPass != process.env.ADMIN_PASS) {
@@ -75,17 +88,23 @@ class SocketHandle {
         return;
       }
       if (!msg.noticiaId) {
-        const noticiaCheck = await Noticia.findOne({
-          where: { titulo: msg.titulo },
-        });
-        if (noticiaCheck) {
-          let respuesta = {
-            id: msg.id,
-            error: `Noticia ya existe`,
-          };
-          this.io.emit("error", respuesta);
-          return;
-        }
+        Noticia.findOne(
+          {
+            titulo: msg.titulo,
+          },
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              let respuesta = {
+                id: msg.id,
+                error: `Noticia ya existe`,
+              };
+              this.io.emit("error", respuesta);
+              return;
+            }
+          }
+        );
       }
       if (
         msg.titulo == "" ||
@@ -103,10 +122,13 @@ class SocketHandle {
         return;
       }
       if (msg.noticiaId) {
-        const noticiaDelete = await Noticia.findOne({
-          where: { id: msg.noticiaId },
+        Noticia.deleteOne({ id: msg.noticiaId }, (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("Noticia eliminada");
+          }
         });
-        noticiaDelete.destroy();
       }
       if (
         msg.importancia == "importante1" ||
@@ -116,26 +138,37 @@ class SocketHandle {
         msg.importancia == "importante5" ||
         msg.importancia == "importante6"
       ) {
-        const noticiaEdit = await Noticia.findOne({
-          where: { importancia: msg.importancia },
-        });
-        if (noticiaEdit != null) {
-          noticiaEdit.importancia = "normal";
-          await noticiaEdit.save({ fields: ["importancia"] });
-          await noticiaEdit.reload();
-        }
+        Noticia.findOneAndUpdate(
+          {
+            importancia: msg.importancia,
+          },
+          {
+            importancia: "normal",
+          },
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(result);
+            }
+          }
+        );
       }
       if (
         msg.temaPrincipal == "Vida sana" ||
         msg.temaPrincipal == "Medio ambiente" ||
         msg.temaPrincipal == "Genero"
       ) {
-        const notaVida = await Noticia.findOne({
-          where: { temaPrincipal: msg.temaPrincipal },
-        });
-        if (notaVida != null) {
-          Noticia.destroy({ where: { temaPrincipal: msg.temaPrincipal } });
-        }
+        Noticia.deleteOne(
+          { temaPrincipal: msg.temaPrincipal },
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("noticia eliminada");
+            }
+          }
+        );
       }
       let fuenteEnviar;
       if (!msg.fuente) {
@@ -143,7 +176,7 @@ class SocketHandle {
       } else {
         fuenteEnviar = msg.fuente;
       }
-      Noticia.create({
+      const nuevaNoticia = new Noticia({
         titulo: msg.titulo,
         contenido: msg.contenido,
         contenidoRes: msg.contenidoRes,
@@ -153,23 +186,24 @@ class SocketHandle {
         importancia: msg.importancia,
         autor: msg.autor,
         fuente: fuenteEnviar,
-      })
-        .then(() => {
-          let respuesta = {
-            id: msg.id,
-            msg: `Creado correctamente`,
-          };
-          this.io.emit("respPostNoticia", respuesta);
-          return;
-        })
-        .catch((err) => {
+      });
+      nuevaNoticia.save((err, result) => {
+        if (err) {
           let respuesta = {
             id: msg.id,
             error: err,
           };
           this.io.emit("respPostNoticia", respuesta);
           return;
-        });
+        } else {
+          let respuesta = {
+            id: msg.id,
+            msg: `Creado correctamente`,
+          };
+          this.io.emit("respPostNoticia", respuesta);
+          return;
+        }
+      });
     }
     if (msg.type == "getMensajes") {
       if (msg.adminPass != process.env.ADMIN_PASS) {
@@ -180,13 +214,18 @@ class SocketHandle {
         this.io.emit("error", respuesta);
         return;
       }
-      const mensajes = await Mensaje.findAll();
-      let respuesta = {
-        id: msg.id,
-        mensajes: mensajes,
-      };
-      this.io.emit("mensajesNuevos", respuesta);
-      return;
+      Mensaje.find((err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          let respuesta = {
+            id: msg.id,
+            mensajes: result,
+          };
+          this.io.emit("mensajesNuevos", respuesta);
+          return;
+        }
+      });
     }
     if (msg.type == "delMensaje") {
       if (msg.adminPass != process.env.ADMIN_PASS) {
@@ -198,28 +237,26 @@ class SocketHandle {
         this.io.emit("error", respuesta);
         return;
       }
-      const mensajeEliminar = await Mensaje.findOne({
-        where: { id: msg.msgID },
+      Mensaje.deleteOne({ id: msg.msgID }, (err, result) => {
+        if (err) {
+          console.log(err);
+          let respuesta = {
+            id: msg.id,
+            mensaje: `ID de mensaje no encontrado`,
+            boolCheck: false,
+          };
+          this.io.emit("mensajeEliminado", respuesta);
+        } else {
+          let respuesta = {
+            id: msg.id,
+            msgID: msg.msgID,
+            mensaje: `Mensaje eliminado correctamente`,
+            boolCheck: true,
+          };
+          this.io.emit("mensajeEliminado", respuesta);
+          return;
+        }
       });
-      if (mensajeEliminar != null) {
-        mensajeEliminar.destroy();
-        let respuesta = {
-          id: msg.id,
-          msgID: msg.msgID,
-          mensaje: `Mensaje eliminado correctamente`,
-          boolCheck: true,
-        };
-        this.io.emit("mensajeEliminado", respuesta);
-        return;
-      } else {
-        let respuesta = {
-          id: msg.id,
-          mensaje: `ID de mensaje no encontrado`,
-          boolCheck: false,
-        };
-        this.io.emit("mensajeEliminado", respuesta);
-        return;
-      }
     }
     if (msg.type == "postImagenDelDia") {
       if (msg.adminPass != process.env.ADMIN_PASS) {
@@ -232,30 +269,33 @@ class SocketHandle {
         return;
       }
       // Cargar imagen
-      const imagenes = await Imagen.findAll();
-      if (imagenes.length > 0) {
-        Imagen.destroy({ where: {} });
-      }
-      Imagen.create({
-        imgUrl: msg.imgUrl,
-        descripcion: msg.descripcion,
-        autor: msg.autor,
-      })
-        .then(() => {
-          let respImg = {
-            id: msg.id,
-            msg: `Imagen del día cargada correctamente`,
-          };
-          this.io.emit("respPostNoticia", respImg);
-        })
-        .catch((err) => {
-          let respuesta = {
-            id: msg.id,
-            error: err,
-          };
-          this.io.emit("error", respuesta);
-          return;
-        });
+      Imagen.deleteMany({}, (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          const newImage = new Imagen({
+            imgUrl: msg.imgUrl,
+            descripcion: msg.descripcion,
+            autor: msg.autor,
+          });
+          newImage.save((err, result) => {
+            if (err) {
+              console.log(err);
+              let respuesta = {
+                id: msg.id,
+                error: err,
+              };
+              this.io.emit("error", respuesta);
+            } else {
+              let respImg = {
+                id: msg.id,
+                msg: `Imagen del día cargada correctamente`,
+              };
+              this.io.emit("respPostNoticia", respImg);
+            }
+          });
+        }
+      });
     }
     if (msg.type == "postTrivia") {
       if (msg.adminPass != process.env.ADMIN_PASS) {
@@ -268,33 +308,37 @@ class SocketHandle {
         return;
       }
       // Cargar Trivia
-      const trivias = await Trivia.findAll();
-      if (trivias.length > 0) {
-        Trivia.destroy({ where: {} });
-      }
-      Trivia.create({
-        pregunta: msg.pregunta,
-        respuestaUno: msg.respuestaUno,
-        respuestaDos: msg.respuestaDos,
-        respuestaTres: msg.respuestaTres,
-        solucion: msg.solucion,
-      })
-        .then(() => {
-          let respTriv = {
-            id: msg.id,
-            msg: `Trivia creada correctamente`,
-          };
-          this.io.emit("respPostNoticia", respTriv);
-          return;
-        })
-        .catch((err) => {
-          let respuesta = {
-            id: msg.id,
-            error: err,
-          };
-          this.io.emit("error", respuesta);
-          return;
-        });
+      Trivia.deleteMany({}, (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          const newTrivia = new Trivia({
+            pregunta: msg.pregunta,
+            respuestaUno: msg.respuestaUno,
+            respuestaDos: msg.respuestaDos,
+            respuestaTres: msg.respuestaTres,
+            solucion: msg.solucion,
+          });
+          newTrivia.save((err, result) => {
+            if (err) {
+              console.log(err);
+              let respuesta = {
+                id: msg.id,
+                error: err,
+              };
+              this.io.emit("error", respuesta);
+              return;
+            } else {
+              let respTriv = {
+                id: msg.id,
+                msg: `Trivia creada correctamente`,
+              };
+              this.io.emit("respPostNoticia", respTriv);
+              return;
+            }
+          });
+        }
+      });
     }
     // Memes
     if (msg.type == "postMeme") {
@@ -308,28 +352,31 @@ class SocketHandle {
         return;
       }
       // Cargar meme
-      const memes = await Meme.findAll();
-      if (memes.length > 0) {
-        Meme.destroy({ where: {} });
-      }
-      Meme.create({
-        imgUrl: msg.imgUrl,
-      })
-        .then(() => {
-          let respImg = {
-            id: msg.id,
-            msg: `Meme cargado correctamente`,
-          };
-          this.io.emit("respPostNoticia", respImg);
-        })
-        .catch((err) => {
-          let respuesta = {
-            id: msg.id,
-            error: err,
-          };
-          this.io.emit("error", respuesta);
-          return;
-        });
+      Meme.deleteMany({}, (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          const newMeme = new Meme({
+            imgUrl: msg.imgUrl,
+          });
+          newMeme.save((err, result) => {
+            if (err) {
+              console.log(err);
+              let respuesta = {
+                id: msg.id,
+                error: err,
+              };
+              this.io.emit("error", respuesta);
+            } else {
+              let respImg = {
+                id: msg.id,
+                msg: `Meme cargado correctamente`,
+              };
+              this.io.emit("respPostNoticia", respImg);
+            }
+          });
+        }
+      });
     }
   }
 }

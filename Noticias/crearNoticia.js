@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Noticia = require("../modelos/Noticia");
+const Noticia = require("../modelos/modelosMongo/Noticia");
 
 // Crear Noticias
 
@@ -14,16 +14,23 @@ router.post("/", async (req, res) => {
       req.body.importancia == "importante3"
     ) {
       console.log("Pase por Importante");
-      const noticiaEdit = await Noticia.findOne({
-        where: { importancia: req.body.importancia },
-      });
-      noticiaEdit.importancia = "normal";
-      await noticiaEdit.save({ fields: ["importancia"] });
-      await noticiaEdit.reload();
-      console.log(noticiaEdit);
+      await Noticia.findOneAndUpdate(
+        {
+          importancia: req.body.importancia,
+        },
+        {
+          importancia: "normal",
+        },
+        (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(result);
+          }
+        }
+      );
     }
-
-    Noticia.create({
+    const noticiaNueva = new Noticia({
       titulo: req.body.titulo,
       contenido: req.body.contenido,
       imagenesUrl: req.body.imagenesUrl,
@@ -31,8 +38,16 @@ router.post("/", async (req, res) => {
       temaPrincipal: req.body.temaPrincipal,
       importancia: req.body.importancia,
       autor: req.body.autor,
-    }).then(() => {
-      res.status(201).send(`Noticia creada correctamente`);
+    });
+    noticiaNueva.save((err, result) => {
+      if (err) {
+        console.log(err);
+        res.json(err);
+      } else {
+        res
+          .status(201)
+          .send(`Noticia creada correctamente, ${JSON.stringify(result)}`);
+      }
     });
   } catch (err) {
     console.log(err);

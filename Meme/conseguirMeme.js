@@ -1,10 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const Meme = require("../modelos/Meme");
+const Meme = require("../modelos/modelosMongo/Meme");
 
 router.get("/", async (req, res) => {
-  const meme = await Meme.findAll();
-  return res.status(200).json(meme);
+  Meme.find({}, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      return res.status(200).json(result);
+    }
+  });
 });
 
 module.exports = router;

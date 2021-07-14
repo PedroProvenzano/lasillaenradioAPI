@@ -1,28 +1,26 @@
 const express = require("express");
 const router = express.Router();
-const Visita = require("../modelos/Visita");
+const Visita = require("../modelos/modelosMongo/Visita");
 
 router.get("/", async (req, res) => {
-  let visitaData = await Visita.findOne({
-    where: { id: 1 },
+  Visita.findOne({ name: "visitas" }, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      Visita.findOneAndUpdate(
+        { name: "visitas" },
+        { numerovisitas: result.numerovisitas + 1 },
+        (err, resultDos) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(resultDos);
+            return res.status(200).send("Visita!");
+          }
+        }
+      );
+    }
   });
-  if (!visitaData) {
-    Visita.create({
-      numerovisitas: 1,
-    })
-      .then(() => {
-        console.log("Creada primer visita");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } else {
-    visitaData.numerovisitas += 1;
-    await visitaData.save({ fields: ["numerovisitas"] });
-    await visitaData.reload();
-    console.log("Nueva visita!");
-    return res.status(200).send("Visita!");
-  }
 });
 
 module.exports = router;

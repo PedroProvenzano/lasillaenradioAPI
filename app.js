@@ -1,4 +1,4 @@
-require("./conexiones/connection");
+const mongoDBConnection = require("./conexiones/mongo/connection");
 require("dotenv/config");
 const express = require("express");
 const app = express();
@@ -15,12 +15,10 @@ const imagen = require("./rutas/imagen");
 const trivia = require("./rutas/trivia");
 const visitas = require("./rutas/visitas");
 const meme = require("./rutas/meme");
-// Syncs
-require("./conexiones/migraciones");
-
+mongoDBConnection();
 // Middlewares
 app.use(cors());
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 app.use("/noticias", noticias);
 app.use("/mensajes", mensajes);
 app.use("/imagen", imagen);

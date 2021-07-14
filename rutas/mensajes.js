@@ -8,7 +8,7 @@ router.use("/enviar", enviarMensaje);
 
 // Get
 // Conseguir noticias
-const mensajes = require("../Mensajes/conseguirMensajes");
-router.use("/todas", mensajes);
+//const mensajes = require("../Mensajes/conseguirMensajes");
+//router.use("/todas", mensajes);
 
 module.exports = router;

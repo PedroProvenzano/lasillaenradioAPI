@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Mensaje = require("../modelos/Mensaje");
+const Mensaje = require("../modelos/modelosMongo/Mensaje");
 
 router.post("/", async (req, res) => {
   if (
@@ -11,18 +11,19 @@ router.post("/", async (req, res) => {
   ) {
     return res.status(400).send(`Falta informacion`);
   }
-  Mensaje.create({
+  const nuevoMensaje = new Mensaje({
     email: req.body.email,
     nombre: req.body.nombre,
     barrio: req.body.barrio,
     contenido: req.body.contenido,
-  })
-    .then(() => {
-      return res.status(200).send(`Mensaje enviado correctamente`);
-    })
-    .catch((err) => {
+  });
+  nuevoMensaje.save((err, result) => {
+    if (err) {
       return res.status(400).json(err);
-    });
+    } else {
+      return res.status(200).send(`Mensaje enviado correctamente`);
+    }
+  });
 });
 
 module.exports = router;

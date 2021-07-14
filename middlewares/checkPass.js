@@ -1,3 +1,5 @@
+require("dotenv/config");
+
 async function checkAdmin(req, res, next) {
   if (!req.body.adminPass) {
     res.status(400).send(`You need to provide admin pass`);
