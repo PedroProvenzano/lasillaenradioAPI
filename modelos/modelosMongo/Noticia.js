@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const moment = require("moment-timezone");
+const BuenosAires = moment().tz("America/Argentina/Buenos_Aires");
 
 const NoticiaSchema = new mongoose.Schema({
   titulo: { type: String, required: true },
@@ -10,7 +12,7 @@ const NoticiaSchema = new mongoose.Schema({
   importancia: { type: String, required: false },
   autor: { type: String, required: true },
   fuente: { type: String, required: false },
-  date: { type: Date, default: Date.now },
+  date: { type: Date, default: BuenosAires.format() },
 });
 
 module.exports = mongoose.model("Noticia", NoticiaSchema);
