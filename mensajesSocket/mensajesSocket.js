@@ -157,7 +157,8 @@ class SocketHandle {
       if (
         msg.temaPrincipal == "Vida sana" ||
         msg.temaPrincipal == "Medio ambiente" ||
-        msg.temaPrincipal == "Genero"
+        msg.temaPrincipal == "Genero" ||
+        msg.temaPrincipal == "curiosidades"
       ) {
         Noticia.deleteOne(
           { temaPrincipal: msg.temaPrincipal },
