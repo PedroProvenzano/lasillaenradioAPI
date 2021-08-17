@@ -3,6 +3,7 @@ const router = express.Router();
 const Mensaje = require("../modelos/modelosMongo/Mensaje");
 
 router.post("/", async (req, res) => {
+  console.log(`Desde mensajes: ${req}`);
   if (
     req.body.email == null ||
     req.body.nombre == null ||
