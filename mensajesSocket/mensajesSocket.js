@@ -223,6 +223,7 @@ class SocketHandle {
             id: msg.id,
             mensajes: result,
           };
+          console.log(respuesta.mensajes);
           this.io.emit("mensajesNuevos", respuesta);
           return;
         }

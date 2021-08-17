@@ -18,7 +18,7 @@ const meme = require("./rutas/meme");
 mongoDBConnection();
 // Middlewares
 app.use(cors());
-//app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use("/noticias", noticias);
 app.use("/mensajes", mensajes);
 app.use("/imagen", imagen);

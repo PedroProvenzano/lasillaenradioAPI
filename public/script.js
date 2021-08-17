@@ -105,10 +105,10 @@ socket.on("mensajesNuevos", (msg) => {
       contDiv.append(pID);
       let pFecha = document.createElement("p");
       pFecha.setAttribute("class", "mensaje-fecha");
-      pFecha.innerText = `Fecha del mensaje: ${i.createdAt.slice(
+      pFecha.innerText = `Fecha del mensaje: ${i.date.slice(
         8,
         10
-      )}/${i.createdAt.slice(5, 7)}/${i.createdAt.slice(0, 4)}`;
+      )}/${i.date.slice(5, 7)}/${i.date.slice(0, 4)}`;
       contDiv.append(pFecha);
       contenedorMensajes.append(contDiv);
     }
