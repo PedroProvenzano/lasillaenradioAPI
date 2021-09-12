@@ -158,7 +158,8 @@ class SocketHandle {
         msg.temaPrincipal == "Vida sana" ||
         msg.temaPrincipal == "Medio ambiente" ||
         msg.temaPrincipal == "Genero" ||
-        msg.temaPrincipal == "curiosidades"
+        msg.temaPrincipal == "curiosidades" ||
+        msg.temaPrincipal == "ecofin"
       ) {
         Noticia.deleteOne(
           { temaPrincipal: msg.temaPrincipal },
