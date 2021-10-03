@@ -1,4 +1,5 @@
 require("dotenv/config");
+import getVideoId from "get-video-id";
 const Noticia = require("../modelos/modelosMongo/Noticia");
 const Mensaje = require("../modelos/modelosMongo/Mensaje");
 const Imagen = require("../modelos/modelosMongo/Imagen");
@@ -176,7 +177,8 @@ class SocketHandle {
       if (!msg.youtubeUrl) {
         newYoutubeUrl = "vacio";
       } else {
-        newYoutubeUrl = msg.youtubeUrl;
+        const { youtubeId } = getVideoId(msg.youtubeUrl);
+        newYoutubeUrl = `https://www.youtube.com/embed/${youtubeId}`;
       }
       let fuenteEnviar;
       if (!msg.fuente) {
