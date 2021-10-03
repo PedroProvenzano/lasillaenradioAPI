@@ -172,6 +172,12 @@ class SocketHandle {
           }
         );
       }
+      let newYoutubeUrl;
+      if (!msg.youtubeUrl) {
+        newYoutubeUrl = "vacio";
+      } else {
+        newYoutubeUrl = msg.youtubeUrl;
+      }
       let fuenteEnviar;
       if (!msg.fuente) {
         fuenteEnviar = "Original";
@@ -188,6 +194,7 @@ class SocketHandle {
         importancia: msg.importancia,
         autor: msg.autor,
         fuente: fuenteEnviar,
+        youtubeUrl: newYoutubeUrl,
       });
       nuevaNoticia.save((err, result) => {
         if (err) {

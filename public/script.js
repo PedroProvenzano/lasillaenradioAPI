@@ -197,6 +197,7 @@ const contenido = document.getElementById("contenido");
 const contenidoRes = document.getElementById("contenidoRes");
 const imagenes = document.getElementById("imagenes");
 const tags = document.getElementById("tags");
+const youtubeUrl = document.getElementById("youtubeUrl");
 const temaPrincipal = document.getElementById("temaPrincipal");
 const importancia = document.getElementById("importancia");
 const autor = document.getElementById("autor");
@@ -237,6 +238,7 @@ botonSend.addEventListener("click", () => {
     importancia: importancia.value,
     autor: autor.value,
     fuente: fuente.value,
+    youtubeUrl: youtubeUrl.value,
   };
   socket.emit("mensaje", postNoticia);
   contenedorBotones.style.display = "none";
@@ -258,6 +260,7 @@ socket.on("respPostNoticia", (msg) => {
     importancia.selectedIndex = "0";
     autor.value = "";
     fuente.value = "";
+    youtubeUrl.value = "";
     contenedorBotones.style.display = "flex";
   }
 });
@@ -361,6 +364,7 @@ socket.on("noticiaAEditar", (msg) => {
   tags.value = finishTag;
   fuente.value = msg.noticia.fuente;
   autor.value = msg.noticia.autor;
+  youtubeUrl.value = msg.noticia.youtubeUrl;
   noticiaId.value = msg.noticia.id;
   switch (msg.noticia.temaPrincipal) {
     case "actualidad":
@@ -434,6 +438,7 @@ botonMandarEditar.addEventListener("click", () => {
     importancia: importancia.value,
     autor: autor.value,
     fuente: fuente.value,
+    youtubeUrl: youtubeUrl.value,
   };
   socket.emit("mensaje", msgEditar);
   contenedorBotones.style.display = "none";
@@ -450,6 +455,7 @@ botonMandarEditar.addEventListener("click", () => {
   autor.value = "";
   fuente.value = "";
   noticiaId.value = "";
+  youtubeUrl.value = "";
 });
 
 const botonEliminar = document.getElementById("boton-eliminar");
@@ -477,6 +483,7 @@ botonEliminar.addEventListener("click", () => {
   autor.value = "";
   fuente.value = "";
   noticiaId.value = "";
+  youtubeUrl.value = "";
 });
 
 // Contador visitas
