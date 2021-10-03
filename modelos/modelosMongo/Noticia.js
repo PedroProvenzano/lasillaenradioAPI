@@ -12,6 +12,7 @@ const NoticiaSchema = new mongoose.Schema({
   importancia: { type: String, required: false },
   autor: { type: String, required: true },
   fuente: { type: String, required: false },
+  youtubeUrl: { type: String, required: false },
   date: { type: Date, default: BuenosAires.format() },
 });
 
