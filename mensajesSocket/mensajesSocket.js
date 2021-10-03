@@ -1,5 +1,5 @@
 require("dotenv/config");
-import getVideoId from "get-video-id";
+const getVideoId = require("get-video-id").default;
 const Noticia = require("../modelos/modelosMongo/Noticia");
 const Mensaje = require("../modelos/modelosMongo/Mensaje");
 const Imagen = require("../modelos/modelosMongo/Imagen");
