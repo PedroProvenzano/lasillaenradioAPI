@@ -178,7 +178,7 @@ class SocketHandle {
       if (!msg.youtubeUrl) {
         newYoutubeUrl = "vacio";
       } else {
-        const { youtubeId } = getVideoId(msg.youtubeUrl);
+        const youtubeId = getVideoId(msg.youtubeUrl).id;
         newYoutubeUrl = `https://www.youtube.com/embed/${youtubeId}`;
       }
       let fuenteEnviar;
