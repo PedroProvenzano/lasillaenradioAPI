@@ -79,6 +79,7 @@ class SocketHandle {
         }
       });
     }
+
     if (msg.type == "postNoticia") {
       if (msg.adminPass != process.env.ADMIN_PASS) {
         let respuesta = {
