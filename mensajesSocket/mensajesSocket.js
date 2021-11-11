@@ -163,13 +163,16 @@ class SocketHandle {
         msg.temaPrincipal == "curiosidades" ||
         msg.temaPrincipal == "ecofin"
       ) {
-        Noticia.deleteOne(
+        Noticia.findOneAndUpdate(
           { temaPrincipal: msg.temaPrincipal },
+          {
+            temaPrincipal: "viejo",
+          },
           (err, result) => {
             if (err) {
               console.log(err);
             } else {
-              console.log("noticia eliminada");
+              console.log("noticia cambiada");
             }
           }
         );
