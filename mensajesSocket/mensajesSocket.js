@@ -161,7 +161,9 @@ class SocketHandle {
         msg.temaPrincipal == "Medio ambiente" ||
         msg.temaPrincipal == "Genero" ||
         msg.temaPrincipal == "curiosidades" ||
-        msg.temaPrincipal == "ecofin"
+        msg.temaPrincipal == "ecofin" ||
+        msg.temaPrincipal == "actualidad-front-uno" ||
+        msg.temaPrincipal == "actualidad-front-dos"
       ) {
         Noticia.findOneAndUpdate(
           { temaPrincipal: msg.temaPrincipal },

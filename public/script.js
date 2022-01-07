@@ -382,14 +382,26 @@ socket.on("noticiaAEditar", (msg) => {
     case "espectaculo":
       temaPrincipal.selectedIndex = 4;
       break;
-    case "vida sana":
+    case "Vida sana":
       temaPrincipal.selectedIndex = 5;
       break;
-    case "medio ambiente":
+    case "Medio ambiente":
       temaPrincipal.selectedIndex = 6;
       break;
-    case "genero":
+    case "Genero":
       temaPrincipal.selectedIndex = 7;
+      break;
+    case "curiosidades":
+      temaPrincipal.selectedIndex = 8;
+      break;
+    case "ecofin":
+      temaPrincipal.selectedIndex = 9;
+      break;
+    case "actualidad-front-uno":
+      temaPrincipal.selectedIndex = 10;
+      break;
+    case "actualidad-front-dos":
+      temaPrincipal.selectedIndex = 11;
       break;
   }
   switch (msg.noticia.importancia) {
@@ -407,6 +419,12 @@ socket.on("noticiaAEditar", (msg) => {
       break;
     case "importante4":
       importancia.selectedIndex = 4;
+      break;
+    case "importante5":
+      importancia.selectedIndex = 5;
+      break;
+    case "importante6":
+      importancia.selectedIndex = 6;
       break;
   }
   noticias.style.backgroundColor = "rgb(98, 98, 252)";
