@@ -84,6 +84,9 @@ html {
 .titulo-memes {
   background-color: darkkhaki;
 }
+.titulo-entrevista {
+  background-color: rgb(201, 130, 201);
+}
 /* Noticias */
 .noticias {
   display: flex; /* none */
