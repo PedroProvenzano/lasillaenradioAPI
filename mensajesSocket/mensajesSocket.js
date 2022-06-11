@@ -409,6 +409,8 @@ class SocketHandle {
         return;
       }
       // Cargar entrevista
+      console.log("Mensaje: ");
+      console.log(msg);
       const newEntre = new Entrevista({
         imgUrl: msg.imgEntre,
         src: msg.srcEntre,
