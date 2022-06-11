@@ -5,6 +5,7 @@ const Imagen = require("../modelos/Imagen");
 const Trivia = require("../modelos/Trivia");
 const Visita = require("../modelos/Visita");
 const Meme = require("../modelos/Meme");
+const Entrevista = require("../modelos/Entrevista");
 class SocketHandle {
   constructor(io) {
     this.io = io;
@@ -321,6 +322,38 @@ class SocketHandle {
             msg: `Meme cargado correctamente`,
           };
           this.io.emit("respPostNoticia", respImg);
+        })
+        .catch((err) => {
+          let respuesta = {
+            id: msg.id,
+            error: err,
+          };
+          this.io.emit("error", respuesta);
+          return;
+        });
+    }
+    // Entrevistas
+    if (msg.type == "postEntre") {
+      if (msg.adminPass != process.env.ADMIN_PASS) {
+        let respuesta = {
+          id: msg.id,
+          error: `Admin pass incorrecta`,
+          boolCheck: false,
+        };
+        this.io.emit("error", respuesta);
+        return;
+      }
+      // Cargar Entrevista
+      Entrevista.create({
+        imgEntre: msg.imgEntre,
+        srcEntre: msg.srcEntre,
+      })
+        .then(() => {
+          let respImg = {
+            id: msg.id,
+            msg: `Entrevista cargada correctamente`,
+          };
+          this.io.emit("respPostEntre", respImg);
         })
         .catch((err) => {
           let respuesta = {

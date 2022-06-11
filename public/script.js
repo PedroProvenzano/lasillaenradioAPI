@@ -121,6 +121,7 @@ const botonMensajes = document.getElementById("titulo-mensajes");
 const botonImagen = document.getElementById("titulo-imagen");
 const botonTrivia = document.getElementById("titulo-trivia");
 const botonMemes = document.getElementById("titulo-memes");
+const botonEntrevista = document.getElementById("titulo-entrevista");
 
 // Escenas
 const noticias = document.getElementById("noticias");
@@ -128,6 +129,7 @@ const mensajes = document.getElementById("mensajes");
 const imagen = document.getElementById("imagen");
 const trivia = document.getElementById("trivia");
 const meme = document.getElementById("meme");
+const entrevista = document.getElementById("entrevista");
 
 botonNoticias.addEventListener("click", () => {
   noticias.style.display = "flex";
@@ -135,6 +137,7 @@ botonNoticias.addEventListener("click", () => {
   imagen.style.display = "none";
   trivia.style.display = "none";
   meme.style.display = "none";
+  entrevista.style.display = "none";
 });
 
 botonMensajes.addEventListener("click", () => {
@@ -143,6 +146,7 @@ botonMensajes.addEventListener("click", () => {
   imagen.style.display = "none";
   trivia.style.display = "none";
   meme.style.display = "none";
+  entrevista.style.display = "none";
 });
 
 botonImagen.addEventListener("click", () => {
@@ -151,6 +155,7 @@ botonImagen.addEventListener("click", () => {
   imagen.style.display = "flex";
   trivia.style.display = "none";
   meme.style.display = "none";
+  entrevista.style.display = "none";
 });
 
 botonTrivia.addEventListener("click", () => {
@@ -159,6 +164,7 @@ botonTrivia.addEventListener("click", () => {
   imagen.style.display = "none";
   trivia.style.display = "flex";
   meme.style.display = "none";
+  entrevista.style.display = "none";
 });
 
 botonMemes.addEventListener("click", () => {
@@ -167,6 +173,16 @@ botonMemes.addEventListener("click", () => {
   imagen.style.display = "none";
   trivia.style.display = "none";
   meme.style.display = "flex";
+  entrevista.style.display = "none";
+});
+
+botonEntrevista.addEventListener("click", () => {
+  noticias.style.display = "none";
+  mensajes.style.display = "none";
+  imagen.style.display = "none";
+  trivia.style.display = "none";
+  meme.style.display = "none";
+  entrevista.style.display = "flex";
 });
 
 // Agregar links
@@ -510,4 +526,28 @@ botonSendMemes.addEventListener("click", () => {
 
 inputImgMemes.addEventListener("change", () => {
   ImgMemes.src = inputImgMemes.value;
+});
+
+// Entrevista
+const imgEntre = document.getElementById("inputEntreImg");
+const srcEntre = document.getElementById("inputEntreSrc");
+const botonSendEntre = document.getElementById("boton-send-entrevista");
+
+botonSendEntre.addEventListener("click", () => {
+  let postEntre = {
+    id: clientID,
+    adminPass: adminPass.value,
+    type: "postEntre",
+    imgEntre,
+    srcEntre,
+  };
+  socket.emit("mensaje", postEntre);
+});
+
+socket.on("respPostEntre", (msg) => {
+  if (msg.id == clientID) {
+    printConsole(msg.msg, "green");
+    imgEntre.value = "";
+    srcEntre.value = "";
+  }
 });
