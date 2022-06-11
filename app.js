@@ -15,6 +15,7 @@ const imagen = require("./rutas/imagen");
 const trivia = require("./rutas/trivia");
 const visitas = require("./rutas/visitas");
 const meme = require("./rutas/meme");
+const entrevistas = require("./rutas/entrevistas");
 mongoDBConnection();
 // Middlewares
 app.use(cors());
@@ -25,6 +26,7 @@ app.use("/imagen", imagen);
 app.use("/trivia", trivia);
 app.use("/visitas", visitas);
 app.use("/meme", meme);
+app.use("/entrevistas", entrevistas);
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {

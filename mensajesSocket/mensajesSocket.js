@@ -6,6 +6,7 @@ const Imagen = require("../modelos/modelosMongo/Imagen");
 const Trivia = require("../modelos/modelosMongo/Trivia");
 const Visita = require("../modelos/modelosMongo/Visita");
 const Meme = require("../modelos/modelosMongo/Meme");
+const Entrevista = require("../modelos/modelosMongo/Entrevista");
 class SocketHandle {
   constructor(io) {
     this.io = io;
@@ -393,6 +394,39 @@ class SocketHandle {
               this.io.emit("respPostNoticia", respImg);
             }
           });
+        }
+      });
+    }
+    // Entrevista
+    if (msg.type == "postEntre") {
+      if (msg.adminPass != process.env.ADMIN_PASS) {
+        let respuesta = {
+          id: msg.id,
+          error: `Admin pass incorrecta`,
+          boolCheck: false,
+        };
+        this.io.emit("error", respuesta);
+        return;
+      }
+      // Cargar entrevista
+      const newEntre = new Entrevista({
+        imgUrl: msg.imgEntre,
+        src: msg.srcEntre,
+      });
+      newEntre.save((err, result) => {
+        if (err) {
+          console.log(err);
+          let respuesta = {
+            id: msg.id,
+            error: err,
+          };
+          this.io.emit("error", respuesta);
+        } else {
+          let respImg = {
+            id: msg.id,
+            msg: `Entrevista cargada correctamente`,
+          };
+          this.io.emit("respPostEntre", respImg);
         }
       });
     }
