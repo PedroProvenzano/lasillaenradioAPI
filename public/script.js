@@ -560,12 +560,16 @@ const srcEntre = document.getElementById("inputEntreSrc");
 const botonSendEntre = document.getElementById("boton-send-entrevista");
 
 botonSendEntre.addEventListener("click", () => {
+  const divEntre = document.createElement("div");
+  divEntre.innerHTML = srcEntre.value;
+  const src = div.firstChild.getAttribute("src");
+
   let postEntre = {
     id: clientID,
     adminPass: adminPass.value,
     type: "postEntre",
     imgEntre: imgEntre.value,
-    srcEntre: srcEntre.value,
+    srcEntre: src,
   };
   socket.emit("mensaje", postEntre);
 });
