@@ -562,7 +562,7 @@ const botonSendEntre = document.getElementById("boton-send-entrevista");
 botonSendEntre.addEventListener("click", () => {
   const divEntre = document.createElement("div");
   divEntre.innerHTML = srcEntre.value;
-  const src = div.firstChild.getAttribute("src");
+  const src = divEntre.firstChild.getAttribute("src");
 
   let postEntre = {
     id: clientID,
