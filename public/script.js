@@ -564,8 +564,8 @@ botonSendEntre.addEventListener("click", () => {
     id: clientID,
     adminPass: adminPass.value,
     type: "postEntre",
-    imgEntre: imgEntre,
-    srcEntre: srcEntre,
+    imgEntre: imgEntre.value,
+    srcEntre: srcEntre.value,
   };
   socket.emit("mensaje", postEntre);
 });
