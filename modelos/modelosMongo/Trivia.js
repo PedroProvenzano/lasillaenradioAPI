@@ -8,6 +8,7 @@ const TriviaSchema = new mongoose.Schema({
   respuestaDos: { type: String, required: true },
   respuestaTres: { type: String, required: true },
   solucion: { type: String, required: false },
+  description: { type: String, required: false },
   date: { type: Date, default: BuenosAires.format() },
 });
 

@@ -336,6 +336,9 @@ const inputPregunta = document.getElementById("inputPregunta");
 const inputRespuestaUno = document.getElementById("inputRespuestaUno");
 const inputRespuestaDos = document.getElementById("inputRespuestaDos");
 const inputRespuestaTres = document.getElementById("inputRespuestaTres");
+const inputDescriptionTrivia = document.getElementById(
+  "inputDescriptionTrivia"
+);
 const inputSolucion = document.getElementById("inputSolucion");
 const botonTriviaSend = document.getElementById("boton-send-trivia");
 
@@ -348,6 +351,7 @@ botonTriviaSend.addEventListener("click", () => {
     respuestaUno: inputRespuestaUno.value,
     respuestaDos: inputRespuestaDos.value,
     respuestaTres: inputRespuestaTres.value,
+    description: inputDescriptionTrivia.value,
     solucion: inputSolucion.value,
   };
   socket.emit("mensaje", postTrivia);

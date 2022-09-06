@@ -337,6 +337,7 @@ class SocketHandle {
             respuestaDos: msg.respuestaDos,
             respuestaTres: msg.respuestaTres,
             solucion: msg.solucion,
+            description: msg.description,
           });
           newTrivia.save((err, result) => {
             if (err) {
